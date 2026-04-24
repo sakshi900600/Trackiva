@@ -1,0 +1,56 @@
+.container {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* Buttons Base */
+.container button {
+  flex: 1;
+  padding: 16px 20px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Primary Button (Gradient) */
+.primaryBtn {
+  border: none;
+  color: white;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+}
+
+/* Secondary Button (Dotted Border) */
+.secondaryBtn {
+  background: transparent;
+  border: 2px dashed #c7d2fe;
+  color: #4f46e5;
+}
+
+.secondaryBtn:hover {
+  background: rgba(99, 102, 241, 0.08);
+  border-color: #6366f1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .container button {
+    width: 100%;
+  }
+}

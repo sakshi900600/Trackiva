@@ -1,0 +1,151 @@
+.reportContainer {
+  font-family: 'Inter', sans-serif;
+  padding: 2rem;
+}
+
+/* HEADER */
+.header {
+  margin-bottom: 2rem;
+}
+
+.mainHeading {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* CARD (NO SHADOW ❌ ONLY BORDER ✅) */
+.formCard {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb; /* ✅ clean border */
+}
+
+.reportForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* INPUTS */
+.select,
+.textarea {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #111827;
+  padding: 10px 12px;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.select:focus,
+.textarea:focus {
+  border-color: #4f46e5; /* sidebar theme */
+}
+
+.textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+/* RATING */
+.ratingGrid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ratingBtn {
+  flex: 1;
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ratingBtn:hover {
+  border-color: #4f46e5;
+}
+
+.activeRating {
+  border-color: #4f46e5;
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+/* BUTTON (gradient using sidebar theme) */
+.submitBtn {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.submitBtn:hover {
+  opacity: 0.9;
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* SUCCESS */
+.successCard {
+  max-width: 420px;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+  background: #ffffff;
+}
+
+.tickIcon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin: 0 auto 1rem;
+}
+
+.successTitle {
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.successMessage {
+  color: #6b7280;
+}

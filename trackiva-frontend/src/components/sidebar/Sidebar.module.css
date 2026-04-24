@@ -1,0 +1,35 @@
+.sidebar {
+  width: 240px;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  padding: 24px 12px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #374151;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.item:hover {
+  background: #f3f4f6;
+}
+
+.active {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+/* hide on small */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}

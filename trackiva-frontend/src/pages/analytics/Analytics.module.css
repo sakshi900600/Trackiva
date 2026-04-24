@@ -1,0 +1,58 @@
+.container {
+  width: 100%;
+  padding: 16px;
+}
+
+/* 📱 Tablet */
+@media (min-width: 640px) {
+  .container {
+    padding: 20px;
+  }
+}
+
+/* 💻 Desktop */
+@media (min-width: 1024px) {
+  .container {
+    padding: 24px 32px;
+  }
+}
+
+/* Header */
+.header {
+  margin-bottom: 46px;
+}
+
+/* Title */
+.title {
+  font-size: 38px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Subtitle */
+.subtitle {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Responsive Typography */
+@media (min-width: 640px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,30 @@
+.container {
+  width: 100%;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔥 Add spacing INSIDE each section instead */
+.section {
+  margin-bottom: 24px;
+}
+
+/* remove last spacing */
+.section:last-child {
+  margin-bottom: 0;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .section {
+    margin-bottom: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .section {
+    margin-bottom: 16px;
+  }
+}

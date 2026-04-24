@@ -1,0 +1,55 @@
+.container {
+  width: 100%;
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+/* Title */
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px; /* 👈 added spacing */
+}
+
+/* List */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px; /* 👈 spacing between cards */
+}
+
+/* Divider above button */
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 18px 0;
+}
+
+/* Button */
+.viewAll {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: #4f46e5;
+  font-weight: 500;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+
+  cursor: pointer;
+}
+
+.viewAll:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title {
+    font-size: 18px;
+  }
+}

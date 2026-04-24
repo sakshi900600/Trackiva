@@ -1,0 +1,83 @@
+.card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* Rows */
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.row button {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Skill Section */
+.skillSection {
+  margin-top: 10px;
+}
+
+.label {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+/* Input */
+.skillInput {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.skillInput input {
+  flex: 1;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.skillInput button {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+/* Skills */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill {
+  background: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.skill span {
+  cursor: pointer;
+}

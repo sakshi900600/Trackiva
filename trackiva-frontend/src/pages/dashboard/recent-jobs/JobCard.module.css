@@ -1,0 +1,113 @@
+.card {
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+  border: 1px solid #e5e7eb;
+  transition: 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+/* Top */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.company {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Status */
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Status Colors */
+.screening {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.interview {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.offer {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.applied {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* Middle */
+.middle {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.middle span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Meta */
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Divider */
+.metaDivider {
+  width: 1px;
+  height: 14px;
+  background: #d1d5db;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .middle {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,182 @@
+.container {
+  width: 100%;
+  /* padding: 24px 48px; */
+}
+
+/* 📱 Tablet */
+@media (max-width: 1024px) {
+  .container {
+    padding: 20px 24px;
+  }
+}
+
+/* 📱 Mobile */
+@media (max-width: 640px) {
+  .container {
+    padding: 16px;
+  }
+}
+
+/* HEADER SECTION */
+.header {
+  margin-bottom: 24px;
+}
+
+/* MAIN TITLE */
+.title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* SUBTITLE */
+.subtitle {
+  margin-top: 6px;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+/* 📱 Responsive text */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+}
+
+/* WHITE CARD WRAPPER */
+.containerCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  padding: 16px;
+}
+
+/* ROLE */
+.role {
+  font-weight: 500;
+  color: #111827;
+}
+
+/* STATUS */
+.status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.applied {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.interview {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.offer {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.screening {
+  background: #f2efac;
+  color: #706a05;
+}
+
+
+/* existing styles stay the same ... */
+
+/* ✅ FIX: Pagination styles were missing — added here */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding: 0 4px;
+}
+
+.pageBtn {
+  border: 1px solid #e0e7ff;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  padding: 8px 18px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.pageBtn:hover:not(:disabled) {
+  box-shadow: 0 6px 14px rgba(99, 102, 241, 0.25);
+}
+
+.pageBtn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.pageBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  font-size: 13px;
+  color: #6b7280;
+  background: #f9fafb;
+  padding: 6px 14px;
+  border-radius: 8px;
+}
+
+/* 🔥 NEW: Salary */
+.salary {
+  font-size: 13px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* 🔥 NEW: Confidence score bar */
+.scoreWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 90px;
+}
+
+.scoreBar {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+  transition: width 0.3s ease;
+  flex-shrink: 0;
+  max-width: 60px;
+  min-width: 0;
+}
+
+.scoreLabel {
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+}

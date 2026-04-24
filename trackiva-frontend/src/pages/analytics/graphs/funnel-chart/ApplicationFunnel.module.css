@@ -1,0 +1,118 @@
+.card {
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 24px;
+
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* Header */
+.header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.header p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* Funnel */
+.funnelWrapper {
+  margin-top: 24px;
+  position: relative;
+}
+
+/* Each row */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+/* Bar */
+.bar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: 600;
+
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.bar:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Value */
+.value {
+  font-size: 14px;
+}
+
+/* Label */
+.label {
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* Bottom stats */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.stats p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.stats span {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+  display: block;
+}
+
+/* 📱 Responsive */
+@media (max-width: 640px) {
+  .stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .label {
+    margin-top: 4px;
+  }
+}

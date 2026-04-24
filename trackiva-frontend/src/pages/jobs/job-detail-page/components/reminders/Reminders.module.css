@@ -1,0 +1,123 @@
+.card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Title */
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Add Section */
+.addSection {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.input {
+  flex: 2;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.dateInput {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.addBtn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.addBtn:hover {
+  background: #4f46e5;
+}
+
+/* List */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Item */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Completed */
+.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+/* Left */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Text */
+.text {
+  font-size: 14px;
+}
+
+.date {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Delete */
+.deleteBtn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #ef4444;
+}
+
+/* Empty */
+.empty {
+  font-size: 13px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .addSection {
+    flex-direction: column;
+  }
+
+  .input,
+  .dateInput {
+    width: 100%;
+  }
+
+  .addBtn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,114 @@
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 23px 18px;
+  background-color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card:hover {
+    cursor: pointer;
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+}
+
+/* Top Row */
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Title */
+.title {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Icon */
+.iconWrapper {
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Value */
+.value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Change Text */
+.changeText {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* 🎨 Color Variants */
+.green {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.blue {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.purple {
+  background-color: #f3e8ff;
+  color: #9333ea;
+}
+
+.orange {
+  background-color: #ffedd5;
+  color: #ea580c;
+}
+
+/* 🔥 Change text states */
+.positive {
+  color: #16a34a; /* green */
+  font-weight: 500;
+}
+
+.negative {
+  color: #dc2626; /* red */
+  font-weight: 500;
+}
+
+.neutral {
+  color: #6b7280; /* gray */
+}
+
+.red {
+  background-color: #fee2e2; /* light red bg */
+  color: #dc2626; /* red icon */
+}
+
+
+/* 📱 Responsive */
+@media (min-width: 640px) {
+  .value {
+    font-size: 28px;
+  }
+
+  .title {
+    font-size: 15px;
+  }
+
+  .changeText {
+    font-size: 14px;
+  }
+}

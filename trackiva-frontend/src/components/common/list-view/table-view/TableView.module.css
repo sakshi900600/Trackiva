@@ -1,0 +1,45 @@
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+/* HEADER */
+.table th {
+  text-align: left;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  padding: 14px 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ROWS */
+.table td {
+  padding: 16px 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+/* alternate row */
+.table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+/* hover */
+.table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+/* state (loading/empty) */
+.stateBox {
+  padding: 30px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}

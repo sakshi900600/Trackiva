@@ -1,0 +1,241 @@
+.navbar {
+  height: 70px;
+  width: 100%;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+/* LEFT */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo img {
+  height: 46px;
+  object-fit: contain;
+}
+
+/* MENU */
+.menuBtn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: none;
+}
+
+/* RIGHT */
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #6971a2, #41455b);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.dropdownIcon {
+  transition: transform 0.2s;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  min-width: 190px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dropdownItem:hover {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+/* MOBILE SIDEBAR */
+.overlay {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 50;
+}
+
+.mobileSidebar {
+  position: fixed;
+  top: 83px; /* navbar + gap */
+  left: 0;
+  height: calc(100% - 83px);
+  width: 260px;
+  background: #ffffff;
+  z-index: 100;
+  padding: 16px 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.mobileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.mobileHeader svg {
+  cursor: pointer;
+}
+
+.mobileItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #374151;
+  transition: all 0.2s;
+}
+
+.mobileItem:hover {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+span{
+  text-decoration: none;
+}
+
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .menuBtn {
+    display: block;
+  }
+
+  .name {
+    display: none;
+  }
+}
+
+@media (max-width: 397px) {
+  .logo img {
+    height: 36px;
+  }
+
+  .profile {
+    padding: 4px 6px;
+    gap: 6px;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+
+/* ADD THESE AT END */
+
+/* AUTH BUTTONS */
+.authButtons {
+  display: flex;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.loginBtn {
+  padding: 11px 24px;
+  border-radius: 6px;
+  border: 1px solid #6366f1;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 18px;
+}
+
+.loginBtn:hover {
+  background: #6366f1;
+}
+
+.signupBtn {
+  padding: 11px 24px;
+  border-radius: 6px;
+  border: none;
+  background: #6366f1;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 18px;
+}
+
+.signupBtn:hover {
+  background: #4f46e5;
+}
+
+/* ACTIVE MOBILE ITEM */
+.activeMobile {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+/* MOBILE FIX: only ONE button when not logged in */
+@media (max-width: 768px) {
+  .authButtons {
+    gap: 6px;
+  }
+
+  .signupBtn {
+    display: none; /* only login on small screens */
+  }
+}

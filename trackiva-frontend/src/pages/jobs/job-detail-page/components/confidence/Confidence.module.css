@@ -1,0 +1,93 @@
+.card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
+/* Title */
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* Circle */
+.circleWrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 16px;
+}
+
+.svg {
+  transform: rotate(-90deg);
+}
+
+/* Background circle */
+.bg {
+  fill: none;
+  stroke: #e5e7eb;
+  stroke-width: 10;
+}
+
+/* Progress circle */
+.progress {
+  fill: none;
+  stroke: #6366f1;
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+/* Center text */
+.centerText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Input */
+.inputSection {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.input {
+  width: 60px;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.saveBtn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.saveBtn:hover {
+  background: #4f46e5;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .circleWrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .centerText {
+    font-size: 16px;
+  }
+}
