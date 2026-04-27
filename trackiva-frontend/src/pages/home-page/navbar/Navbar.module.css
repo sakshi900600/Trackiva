@@ -1,0 +1,126 @@
+/* Navbar.module.css */
+
+.navbar {
+  position: relative;
+  z-index: 100;
+  padding: 24px 48px 0;
+}
+
+/* White rounded pill */
+.navbarPill {
+  max-width: 1200px; /* Changed from 98% for better large-screen control */
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 50px;
+  border: 1.5px solid rgba(255, 255, 255, 0.98);
+  box-shadow:
+    0 4px 28px rgba(100, 60, 200, 0.10),
+    0 1px 4px rgba(0, 0, 0, 0.04);
+  padding: 8px 8px 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures Logo - Links - CTA spacing */
+}
+
+/* Logo Container & Image */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo img {
+  height: 42px; /* Set a fixed height to prevent layout break */
+  width: auto;  /* Maintains aspect ratio */
+  display: block;
+}
+
+/* Nav links */
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  position: absolute; /* Centers links relative to the pill */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navLinks a {
+  font-size: 15px;
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 0.18s;
+  white-space: nowrap;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.navLinks a:hover { color: #7C3AED; }
+.active { color: #7C3AED !important; font-weight: 600 !important; }
+
+/* CTA Button */
+.ctaBtn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 24px;
+  background: #7C3AED;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.36);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  white-space: nowrap;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.ctaBtn:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 22px rgba(124, 58, 237, 0.46);
+}
+
+/* ─── Responsive ─── */
+
+/* Handle tablet/small laptop */
+@media (max-width: 1024px) {
+  .navLinks {
+    position: static; /* Remove absolute centering to prevent overlap */
+    transform: none;
+    left: auto;
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 960px) {
+  .navbar { padding: 18px 24px 0; }
+  .navLinks { gap: 15px; }
+  .navLinks a { font-size: 13px; }
+}
+
+/* Hide links on mobile, keep logo and CTA apart */
+@media (max-width: 768px) {
+  .navbar { padding: 16px 16px 0; }
+  .navLinks { display: none; }
+  
+  .navbarPill {
+    padding: 6px 6px 6px 18px;
+  }
+
+  .logo img {
+    height: 28px; /* Slightly smaller logo on mobile */
+  }
+
+  .ctaBtn {
+    padding: 8px 18px;
+    font-size: 13px;
+  }
+}

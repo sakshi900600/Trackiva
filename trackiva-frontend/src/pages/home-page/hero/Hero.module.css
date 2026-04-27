@@ -1,0 +1,111 @@
+/* Hero.module.css */
+
+.heroSection {
+  position: relative;
+  background: linear-gradient(155deg, #ede8ff 0%, #e0d4ff 45%, #d8c8ff 100%);
+  overflow: hidden;
+  padding-bottom: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ─── Hex pattern ─── */
+.bgPattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Spotlights ─── */
+.spotlightLeft,
+.spotlightRight {
+  position: absolute;
+  width: 540px;
+  height: 540px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlightLeft {
+  top: -110px;
+  left: -140px;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,0.88) 0%,
+    rgba(255,255,255,0.50) 38%,
+    rgba(255,255,255,0.15) 62%,
+    transparent 86%);
+}
+
+.spotlightRight {
+  top: -110px;
+  right: -140px;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,0.88) 0%,
+    rgba(255,255,255,0.50) 38%,
+    rgba(255,255,255,0.15) 62%,
+    transparent 76%);
+}
+
+/* ─── Product Image ─── */
+.productImageSection {
+  position: relative;
+  z-index: 8;
+  padding: 0 72px;
+}
+
+.productImageWrap {
+  position: relative;
+  border-radius: 18px 18px 0 0;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1.5px rgba(255,255,255,0.3),
+    0 -6px 32px rgba(120,60,220,0.18),
+    0 24px 60px rgba(80,40,180,0.22);
+}
+
+.productImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px 18px 0 0;
+}
+
+/*
+  Fade overlay — starts transparent, ends with hero bg colour.
+  Confined inside .productImageWrap (overflow:hidden).
+  Physically impossible to overlap buttons above it.
+*/
+.imageBottomFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52%;
+  background: linear-gradient(
+    to bottom,
+    transparent                   0%,
+    rgba(216,200,255,0.28)       35%,
+    rgba(216,200,255,0.62)       58%,
+    rgba(216, 200, 255, 0.95)       76%,
+    #d8c8ff                      100%
+  );
+  pointer-events: none;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .productImageSection { padding: 0 40px; }
+}
+
+@media (max-width: 768px) {
+  .productImageSection { padding: 0 20px; }
+  .spotlightLeft,
+  .spotlightRight { width: 300px; height: 300px; }
+}
+
+@media (max-width: 480px) {
+  .productImageSection { padding: 0 12px; }
+  .productImageWrap { border-radius: 12px 12px 0 0; }
+  .productImage      { border-radius: 12px 12px 0 0; }
+}

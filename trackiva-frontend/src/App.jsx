@@ -15,6 +15,7 @@ import CoverLetterPage from "./pages/jobs/cover-letter-page/CoverLetterPage";
 
 // import PlatformDetail from "./pages/platforms/platform-detail/PlatformDetail";
 import Auth from "./pages/auth/Auth";
+import Hero from "./pages/home-page/hero/Hero";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
 
           <Route path="/login" element={<Auth />} />
           <Route path="/signup" element={<Auth />} />
+          <Route path="/home" element={<Hero />} />
 
           {/* Protected Routes - Inside MainLayout */}
           <Route element={<MainLayout />}>
