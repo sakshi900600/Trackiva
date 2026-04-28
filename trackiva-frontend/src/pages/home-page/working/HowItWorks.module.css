@@ -1,0 +1,173 @@
+/* HowItWorks.module.css */
+
+.section {
+  background: linear-gradient(135deg, #f0eeff 0%, #ede8ff 50%, #e8f4ff 100%);
+  padding: 100px 48px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Top mesh glow */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 300px;
+  background: radial-gradient(ellipse at center top,
+    rgba(124,58,237,0.10) 0%,
+    rgba(14,165,233,0.05) 40%,
+    transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #0ea5e9;
+  background: rgba(14,165,233,0.10);
+  border: 1px solid rgba(14,165,233,0.22);
+  padding: 6px 18px;
+  border-radius: 50px;
+  margin-bottom: 18px;
+}
+
+.title {
+  font-size: clamp(30px, 4vw, 52px);
+  font-weight: 800;
+  color: #0d0d14;
+  letter-spacing: -1.5px;
+  margin: 0 0 16px;
+}
+
+.accent { color: #a78bfa; }
+
+.subtitle {
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* Steps row */
+.stepsRow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* Connector arrow */
+.connector {
+  flex-shrink: 0;
+  padding: 0 8px;
+  margin-top: -40px;
+  opacity: 0.7;
+}
+
+/* Step card */
+.stepCard {
+  flex: 1;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(124,58,237,0.12);
+  box-shadow: 0 4px 24px rgba(100,60,200,0.08);
+  border-radius: 24px;
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  text-align: center;
+}
+
+.stepCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(167,139,250,0.5), transparent);
+}
+
+.stepCard:nth-child(1) { border-top-color: rgba(124,58,237,0.35); }
+.stepCard:nth-child(3) { border-top-color: rgba(14,165,233,0.35); }
+.stepCard:nth-child(5) { border-top-color: rgba(16,185,129,0.35); }
+
+.stepCard:hover {
+  transform: translateY(-8px);
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 12px 40px rgba(100,60,200,0.14);
+}
+
+/* Number badge */
+.stepNumber {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #a78bfa;
+  background: rgba(124,58,237,0.14);
+  border: 1px solid rgba(124,58,237,0.25);
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin: 0 auto 20px;
+}
+
+/* Icon */
+.stepIconWrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.22), rgba(14,165,233,0.18));
+  border: 1px solid rgba(167,139,250,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a78bfa;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 28px rgba(124,58,237,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.stepTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0d0d14;
+  margin: 0 0 12px;
+  letter-spacing: -0.3px;
+}
+
+.stepDesc {
+  font-size: 13.5px;
+  color: #6b7280;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .stepsRow { flex-direction: column; gap: 20px; }
+  .connector { transform: rotate(90deg); margin: 0; }
+  .stepCard { width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .section { padding: 72px 20px; }
+}

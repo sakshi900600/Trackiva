@@ -40,28 +40,26 @@ export default function HeroContent() {
 
       <div className={styles.badge}>
         <span className={styles.badgeDot} />
-        Inclusive workplaces for all
+        Track every job application, effortlessly
       </div>
 
       <h1 className={styles.headline}>
-        Find Your <span className={styles.highlight}>Dream Jobs</span> And<br />
-        plan your next future with us
+        Track Applications. <span className={styles.highlight}>Spot Patterns.</span><br />
+        Land Your Dream Job Faster
       </h1>
 
       <p className={styles.subtext}>
-        Connect with top employers and explore thousands of opportunities tailored to your
-        skills and career goals. Start your journey toward a brighter future today.
+        Stop losing track of where you applied. Trackiva logs every application, tracks
+        every status, and shows you exactly which resume, portal, and strategy gets you hired.
       </p>
 
       <div className={styles.buttons}>
         <a href="#" className={styles.btnPrimary}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 2v8M5 7l3 3 3-3M3 12h10" stroke="white" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          Download The App
+          
+          Start Tracking Free
         </a>
         <a href="#" className={styles.btnSecondary}>
-          Learn More
+          See How It Works
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M3 7h8M7.5 4l3.5 3-3.5 3" stroke="#111827" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -79,7 +77,7 @@ export default function HeroContent() {
             <circle cx="13.5" cy="4.5" r="1.8" fill="#fbbf24" opacity="0.8"/>
           </svg>
         }
-        label="Total applicants"
+        label="Applications Tracked"
         value="+140"
         trend="40%"
         trendPositive={true}
@@ -96,14 +94,14 @@ export default function HeroContent() {
             <path d="M6 3V2M12 3V2M2 7h14" stroke="#8b5cf6" strokeWidth="1.4" strokeLinecap="round"/>
           </svg>
         }
-        label="Total Interviewed"
+        label="Interviews Scheduled"
         value="+100"
         trend="20%"
-        trendPositive={false}
+        trendPositive={true}
       />
 
-      {/* Jack Kalis pill */}
-      <div className={styles.jackLabel}>Jack Kalis</div>
+      {/* Success pill */}
+      <div className={styles.jackLabel}>🎉 Hired at Razorpay!</div>
 
     </div>
   );

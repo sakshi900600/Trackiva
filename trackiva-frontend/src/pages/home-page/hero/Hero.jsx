@@ -33,19 +33,7 @@ export default function Hero() {
       <Navbar />
       <HeroContent />
 
-      {/* Product image — still inside purple bg */}
-      <div className={styles.productImageSection}>
-        <div className={styles.productImageWrap}>
-          <img
-            src="https://elements-resized.envatousercontent.com/elements-cover-images/66ca6a31-bceb-40e2-90b4-38d5afdeba82?w=1200&h=630&cf_fit=crop&q=85&format=jpeg&s=e5352b85eadb1c6a8169b13785be38361f57d3b7dd700277412bf08df146d329"
-            alt="Trackiva Dashboard Preview"
-            loading="lazy"
-            className={styles.productImage}
-          />
-          {/* Blur fade ONLY at bottom of image — never overlaps buttons above */}
-          <div className={styles.imageBottomFade} />
-        </div>
-      </div>
+      
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "./layout/main-layout/MainLayout";
 import ReportPage from "./pages/reports/ReportPage";
 import Analytics from "./pages/analytics/Analytics";
@@ -11,53 +11,60 @@ import JobDetailPage from "./pages/jobs/job-detail-page/JobDetailPage";
 import ResumePage from "./pages/jobs/resume-page/ResumePage";
 import InterviewPrepPage from "./pages/jobs/interview-prep-page/InterviewPrepPage";
 import CoverLetterPage from "./pages/jobs/cover-letter-page/CoverLetterPage";
-// import ListViewTest from "./test/ListViewTest";
-
-// import PlatformDetail from "./pages/platforms/platform-detail/PlatformDetail";
 import Auth from "./pages/auth/Auth";
-import Hero from "./pages/home-page/hero/Hero";
+import HomePage from "./pages/home-page/HomePage";
+
+// 🔐 Simple auth check (replace later with real auth)
+const isAuthenticated = () => {
+  return !!localStorage.getItem("token");
+};
 
 function App() {
   return (
     <>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-        toastOptions={{
-          duration: 3000,
-          style: {
-            background: "#1f2937",
-            color: "#fff",
-            borderRadius: "10px",
-            padding: "12px 16px",
-          },
-        }}
-      />
+      <Toaster position="top-right" />
 
       <BrowserRouter>
         <Routes>
-          {/* Auth Routes - Outside MainLayout (Full Page) */}
 
+          {/* 🟢 Landing Page */}
+          <Route
+            path="/"
+            element={
+              isAuthenticated() ? (
+                <Navigate to="/dashboard" />
+              ) : (
+                <HomePage />
+              )
+            }
+          />
+
+          {/* 🔓 Auth */}
           <Route path="/login" element={<Auth />} />
           <Route path="/signup" element={<Auth />} />
-          <Route path="/home" element={<Hero />} />
 
-          {/* Protected Routes - Inside MainLayout */}
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Dashboard />} />
+          {/* 🔐 Protected Routes */}
+          <Route
+            element={
+              isAuthenticated() ? (
+                <MainLayout />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+          >
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/platforms" element={<Platforms />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/reports" element={<ReportPage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/job-detail" element={<JobDetailPage />} />
-            {/* <Route path="/platform-detail" element={<PlatformDetail />} /> */}
             <Route path="/jobs/resumes" element={<ResumePage />} />
-            <Route path="/jobs/interview-prep" element={<InterviewPrepPage />}/>
+            <Route path="/jobs/interview-prep" element={<InterviewPrepPage />} />
             <Route path="/jobs/cover-letters" element={<CoverLetterPage />} />
-
-            {/* <Route path="/test" element={<ListViewTest />} /> */}
           </Route>
+
         </Routes>
       </BrowserRouter>
     </>

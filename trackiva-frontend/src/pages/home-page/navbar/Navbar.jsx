@@ -1,28 +1,38 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import logo from "../../../assets/logo.png"
+import logo from "../../../assets/logo.png";
 
 export default function Navbar() {
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarPill}>
 
         {/* Logo */}
-        <a href="#" className={styles.logo} aria-label="Trackiva home">
-          <img src={logo} alt="" />
-        </a>
+        <button onClick={() => scrollToSection("home")} className={styles.logo}>
+          <img src={logo} alt="Trackiva Logo" />
+        </button>
 
-        {/* Nav links — hidden on mobile (≤768 px) */}
+        {/* Nav links */}
         <ul className={styles.navLinks}>
-          <li><a href="#" className={styles.active}>Home</a></li>
-          <li><a href="#">About us</a></li>
-          <li><a href="#">Features</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Find Job</a></li>
+          <li><button onClick={() => scrollToSection("problem")}>Why Trackiva</button></li>
+          <li><button onClick={() => scrollToSection("features")}>Features</button></li>
+          <li><button onClick={() => scrollToSection("how-it-works")}>How it Works</button></li>
+          <li><button onClick={() => scrollToSection("testimonials")}>Reviews</button></li>
         </ul>
 
-        {/* CTA — always visible */}
-        <a href="#" className={styles.ctaBtn}>Join With Us</a>
+        {/* CTA */}
+        <Link to="/login" className={styles.ctaBtn}>
+          Get Started
+        </Link>
 
       </div>
     </nav>

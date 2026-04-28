@@ -8,7 +8,7 @@
 
 /* White rounded pill */
 .navbarPill {
-  max-width: 1200px; /* Changed from 98% for better large-screen control */
+  max-width: 1200px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -19,49 +19,67 @@
     0 4px 28px rgba(100, 60, 200, 0.10),
     0 1px 4px rgba(0, 0, 0, 0.04);
   padding: 8px 8px 8px 24px;
+
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Ensures Logo - Links - CTA spacing */
+  justify-content: space-between;
 }
 
-/* Logo Container & Image */
+/* Logo */
 .logo {
   display: flex;
   align-items: center;
-  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
   flex-shrink: 0;
 }
 
 .logo img {
-  height: 42px; /* Set a fixed height to prevent layout break */
-  width: auto;  /* Maintains aspect ratio */
+  height: 42px;
+  width: auto;
   display: block;
 }
 
-/* Nav links */
+/* Nav links container */
 .navLinks {
   list-style: none;
   display: flex;
   gap: 28px;
   margin: 0;
   padding: 0;
-  position: absolute; /* Centers links relative to the pill */
+
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.navLinks a {
+/* 🔥 FIX: style buttons like links */
+.navLinks button {
+  background: none;
+  border: none;
+  cursor: pointer;
+
   font-size: 15px;
   font-weight: 500;
   color: #4b5563;
-  text-decoration: none;
-  transition: color 0.18s;
-  white-space: nowrap;
   font-family: 'Plus Jakarta Sans', sans-serif;
+
+  transition: color 0.18s, transform 0.12s;
+  white-space: nowrap;
 }
 
-.navLinks a:hover { color: #7C3AED; }
-.active { color: #7C3AED !important; font-weight: 600 !important; }
+/* Hover */
+.navLinks button:hover {
+  color: #7C3AED;
+  transform: translateY(-1px);
+}
+
+/* Active (optional if you add later) */
+.active {
+  color: #7C3AED !important;
+  font-weight: 600 !important;
+}
 
 /* CTA Button */
 .ctaBtn {
@@ -89,10 +107,9 @@
 
 /* ─── Responsive ─── */
 
-/* Handle tablet/small laptop */
 @media (max-width: 1024px) {
   .navLinks {
-    position: static; /* Remove absolute centering to prevent overlap */
+    position: static;
     transform: none;
     left: auto;
     flex: 1;
@@ -103,20 +120,22 @@
 @media (max-width: 960px) {
   .navbar { padding: 18px 24px 0; }
   .navLinks { gap: 15px; }
-  .navLinks a { font-size: 13px; }
+  .navLinks button { font-size: 13px; }
 }
 
-/* Hide links on mobile, keep logo and CTA apart */
 @media (max-width: 768px) {
   .navbar { padding: 16px 16px 0; }
-  .navLinks { display: none; }
-  
+
+  .navLinks {
+    display: none;
+  }
+
   .navbarPill {
     padding: 6px 6px 6px 18px;
   }
 
   .logo img {
-    height: 28px; /* Slightly smaller logo on mobile */
+    height: 28px;
   }
 
   .ctaBtn {
