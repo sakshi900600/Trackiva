@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import styles from "./PlatformTable.module.css";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { useNavigate } from "react-router-dom"; // 🔥 ADD THIS
 import { useAnalytics } from "../../../hooks/useAnalytics";
 import TableView from "../../../components/common/list-view/table-view/TableView";
 
 const PlatformTable = () => {
   const { data, loading } = useAnalytics("all");
 
+  const navigate = useNavigate(); // 🔥 ADD THIS
+
   const [page, setPage] = useState(0);
   const rowsPerPage = 10;
 
   const platforms = data?.platforms || [];
 
-  // ✅ keep formatting logic (only transform layer)
+  // 🔥 attach navigation here
   const formattedData = platforms.map((p) => ({
     platform: p.name,
     applications: p.applications,
@@ -20,6 +23,9 @@ const PlatformTable = () => {
     offers: p.offers,
     responseRate: `${p.responseRate}%`,
     avgTime: "—",
+
+    // 🔥 NAVIGATION HANDLER
+    onClick: () => navigate(`/platforms/${p.name.toLowerCase()}`),
   }));
 
   const start = page * rowsPerPage;
@@ -30,11 +36,23 @@ const PlatformTable = () => {
 
   const totalPages = Math.ceil(formattedData.length / rowsPerPage);
 
-  // ✅ columns definition (REUSABLE STYLE)
+  // ✅ columns definition
   const columns = [
     {
       header: "Platform",
       accessor: "platform",
+      // 🔥 make only text clickable (better UX)
+      render: (row) => (
+        <span
+          className={styles.platformLink}
+          onClick={(e) => {
+            e.stopPropagation(); // prevent double trigger
+            row.onClick();
+          }}
+        >
+          {row.platform}
+        </span>
+      ),
     },
     {
       header: "Applications",
@@ -69,9 +87,10 @@ const PlatformTable = () => {
         columns={columns}
         data={paginatedData}
         loading={loading}
+        onRowClick={(row) => row.onClick()} // 🔥 ROW CLICK ENABLED
       />
 
-      {/* ✅ Pagination (kept outside TableView intentionally) */}
+      {/* ✅ Pagination */}
       {!loading && formattedData.length > 0 && (
         <div className={styles.pagination}>
           <button

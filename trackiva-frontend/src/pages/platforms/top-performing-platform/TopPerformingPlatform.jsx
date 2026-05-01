@@ -19,7 +19,7 @@ const TopPerformingPlatform = () => {
 
   const platforms = data?.platforms || [];
 
-  // ✅ TOP 3 sorted by response rate
+  // 🔥 TOP 3 sorted by response rate
   const topPlatforms = useMemo(() => {
     return [...platforms]
       .sort(
@@ -30,31 +30,26 @@ const TopPerformingPlatform = () => {
       .slice(0, 3)
       .map((p) => ({
         icon: <HiOutlineBriefcase />,
-        name: p.name,
+        name: p.name.toLowerCase(), // 🔥 important for URL consistency
         totalApplications: p.applications,
         responseRate: Number(p.responseRate || 0),
 
-        // ✅ UI-only enriched stats (NOT from backend)
         stats: [
           {
             icon: <FaBriefcase />,
-            label: "Applied",
             value: p.applications,
           },
           {
             icon: <FaUserCheck />,
-            label: "Interviews",
             value: p.interviews,
           },
           {
             icon: <FaGift />,
-            label: "Offers",
             value: p.offers,
           },
           {
             icon: "⏱",
-            label: "Avg Time",
-            value: "—", // backend not providing yet
+            value: "—",
           },
         ],
       }));

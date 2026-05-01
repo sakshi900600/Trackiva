@@ -11,6 +11,8 @@ import quoteRoutes from "./modules/quote/quote.routes.js";
 import analyticsRoutes from "./modules/analytics/analytics.routes.js";
 import reportRoutes from "./modules/report/report.routes.js";
 import coverRoutes from  "./modules/cover-letter/cover.routes.js";
+import platformRoutes from "./modules/platform/platform.routes.js";
+
 
 import { errorHandler } from "./middleware/error.middleware.js";
 
@@ -47,7 +49,7 @@ app.use("/api/analytics", analyticsRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/cover-letter", coverRoutes);
 app.use("/uploads", express.static(path.resolve("uploads")));
-
+app.use("/api/platforms", platformRoutes);
 
 
 // 404 handler

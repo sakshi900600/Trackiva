@@ -2,8 +2,11 @@ import React from "react";
 import styles from "./PlatformCard.module.css";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { HiOutlineBriefcase } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const PlatformCard = ({ data }) => {
+  const navigate = useNavigate();
+
   const interviews = data.stats[0];
   const offers = data.stats[1];
   const rejected = data.stats[2];
@@ -21,7 +24,7 @@ const PlatformCard = ({ data }) => {
     {
       ...rejected,
       label: "Rejected",
-      icon: <AiOutlineCloseCircle />, 
+      icon: <AiOutlineCloseCircle />,
     },
     {
       ...avg,
@@ -30,11 +33,17 @@ const PlatformCard = ({ data }) => {
   ];
 
   return (
-    <div className={styles.card}>
+    <div
+      className={styles.card}
+      onClick={() => navigate(`/platforms/${data.name}`)} // 🔥 NAVIGATION
+      style={{ cursor: "pointer" }}
+    >
       {/* Header */}
       <div className={styles.header}>
         <div className={styles.platformInfo}>
-          <div className={styles.icon}><HiOutlineBriefcase /></div>
+          <div className={styles.icon}>
+            <HiOutlineBriefcase />
+          </div>
           <div>
             <h3 className={styles.name}>{data.name}</h3>
             <p className={styles.apps}>

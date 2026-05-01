@@ -1,7 +1,12 @@
 import React from "react";
 import styles from "./TableView.module.css";
 
-const TableView = ({ columns = [], data = [], loading = false }) => {
+const TableView = ({
+  columns = [],
+  data = [],
+  loading = false,
+  onRowClick, // 🔥 NEW
+}) => {
   return (
     <div className={styles.tableWrapper}>
       <table className={styles.table}>
@@ -35,13 +40,16 @@ const TableView = ({ columns = [], data = [], loading = false }) => {
             </tr>
           ) : (
             data.map((row, rowIndex) => (
-              <tr key={rowIndex}>
+              <tr
+                key={rowIndex}
+                className={onRowClick ? styles.clickableRow : ""}
+                onClick={() => onRowClick && onRowClick(row)} // 🔥 CORE FIX
+              >
                 {columns.map((col, colIndex) => (
                   <td
                     key={colIndex}
                     className={col.className || ""}
                   >
-                    {/* ✅ flexible render OR fallback accessor */}
                     {col.render
                       ? col.render(row)
                       : row[col.accessor]}

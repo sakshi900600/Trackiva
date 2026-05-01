@@ -1,136 +1,142 @@
-// import React, { useState } from "react";
-// import styles from "./PlatformDetail.module.css";
-// import {
-//   ArrowLeft,
-//   Briefcase,
-//   Users,
-//   Award,
-//   TrendingUp,
-// } from "lucide-react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getPlatformJobs } from "../../../api/platform";
+import TableView from "../../../components/common/list-view/table-view/TableView";
+import StatCard from "../../../components/stat-card/StatCard";
 
-// // Reusable ListView
-// import ListView from "../../../components/common/list-view/ListView";
+import {
+  HiOutlineBriefcase,
+  HiOutlineUserGroup,
+  HiOutlineBadgeCheck,
+  HiOutlineChartBar
+} from "react-icons/hi";
 
-// // Existing components
-// import JobCard from "../../jobs/job-list/job-list-view/card-view/job-card/JobCard";
-// import JobTableRow from "../../jobs/job-list/job-list-view/table-view/JobTableRow";
-// import StatCard from "../../../components/stat-card/StatCard";
+import styles from "./PlatformDetail.module.css";
 
-// // Dummy data
-// import jobs from "../../../data/jobs/dummyJobs";
+const PlatformDetail = () => {
+  const { platformName } = useParams();
+  const navigate = useNavigate();
 
-// const PlatformDetail = () => {
-//   const [view, setView] = useState("table");
-//   const [search, setSearch] = useState("");
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-//   const platformName = "LinkedIn";
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getPlatformJobs(platformName);
+        if (res.success) {
+          setJobs(res.data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-//   const platformJobs = jobs.filter(
-//     (job) => job.platform === platformName
-//   );
+    fetchData();
+  }, [platformName]);
 
-//   // Stats
-//   const totalApplications = platformJobs.length;
+  // ===== STATS =====
+  const total = jobs.length;
+  const interviews = jobs.filter(j => j.status === "interview").length;
+  const offers = jobs.filter(j => j.status === "offer").length;
 
-//   const interviews = platformJobs.filter(
-//     (job) => job.status === "Interview"
-//   ).length;
+  const responseRate = total
+    ? (((interviews + offers) / total) * 100).toFixed(1)
+    : 0;
 
-//   const offers = platformJobs.filter(
-//     (job) => job.status === "Offer"
-//   ).length;
+  // ===== TABLE DATA =====
+  const tableData = jobs.map(job => ({
+    role: job.role,
+    company: job.company,
+    status: job.status,
+    platform: job.platform,
+    appliedDate: new Date(job.appliedDate).toLocaleDateString(),
 
-//   const responseRate =
-//     totalApplications === 0
-//       ? 0
-//       : ((interviews + offers) / totalApplications) * 100;
+    onClick: () => navigate(`/jobs/${job._id}`),
+  }));
 
-//   return (
-//     <div className={styles.wrapper}>
-      
-//       {/* Back Button */}
-//       <button className={styles.backBtn}>
-//         <ArrowLeft size={18} />
-//         Back to Platforms
-//       </button>
+  // ===== TABLE COLUMNS =====
+  const columns = [
+    { header: "Role", accessor: "role" },
+    { header: "Company", accessor: "company" },
+    { header: "Platform", accessor: "platform" },
+    { header: "Status", accessor: "status" },
+    { header: "Applied Date", accessor: "appliedDate" },
+  ];
 
-//       {/* Platform Info */}
-//       <div className={styles.header}>
-//         <h1 className={styles.title}>{platformName}</h1>
-//         <p className={styles.subtitle}>
-//           {totalApplications} applications on {platformName}
-//         </p>
-//       </div>
+  if (loading) return <div className={styles.loading}>Loading...</div>;
 
-//       {/* ✅ Fixed Stats Section */}
-//       <div className={styles.statsGrid}>
-//         <StatCard
-//           title="Total Applications"
-//           value={totalApplications}
-//           changeText="All applications"
-//           icon={Briefcase}
-//           color="blue"
-//         />
+  return (
+    <div className={styles.container}>
 
-//         <StatCard
-//           title="Interviews"
-//           value={interviews}
-//           changeText="Shortlisted"
-//           icon={Users}
-//           color="purple"
-//         />
+      {/* 🔙 BACK */}
+      <Link to="/platforms" className={styles.back}>
+        ← Back to Platforms
+      </Link>
 
-//         <StatCard
-//           title="Offers"
-//           value={offers}
-//           changeText="Successful"
-//           icon={Award}
-//           color="green"
-//         />
+      {/* 🔥 HEADER */}
+      <div className={styles.header}>
+        <div>
+          <h1 className={styles.title}>{platformName}</h1>
+          <p className={styles.subtitle}>
+            {total} applications on {platformName}
+          </p>
+        </div>
+      </div>
 
-//         <StatCard
-//           title="Response Rate"
-//           value={`${responseRate.toFixed(1)}%`}
-//           changeText="Based on responses"
-//           icon={TrendingUp}
-//           color="orange"
-//         />
-//       </div>
+      {/* 🔥 STATS CARDS */}
+      <div className={styles.statsGrid}>
 
-//       {/* Divider */}
-//       <div className={styles.divider} />
+        <StatCard
+          title="Total Applications"
+          value={total}
+          changeText=""
+          icon={HiOutlineBriefcase}
+          color="blue"
+        />
 
-//       {/* ListView */}
-//       <ListView
-//         data={platformJobs}
-//         columns={[
-//           "Company",
-//           "Role",
-//           "Platform",
-//           "Status",
-//           "Location",
-//           "Salary",
-//           "Applied",
-//           "Match",
-//         ]}
-//         view={view}
-//         setView={setView}
-//         search={search}
-//         setSearch={setSearch}
-//         searchPlaceholder={`Search ${platformName} jobs...`}
-//         showAddButton={false}
+        <StatCard
+          title="Interviews"
+          value={interviews}
+          changeText=""
+          icon={HiOutlineUserGroup}
+          color="purple"
+        />
 
-//         renderRow={(job, index) => (
-//           <JobTableRow key={index} job={job} />
-//         )}
+        <StatCard
+          title="Offers"
+          value={offers}
+          changeText=""
+          icon={HiOutlineBadgeCheck}
+          color="green"
+        />
 
-//         renderCard={(job, index) => (
-//           <JobCard key={index} job={job} />
-//         )}
-//       />
+        <StatCard
+          title="Response Rate"
+          value={`${responseRate}%`}
+          changeText=""
+          icon={HiOutlineChartBar}
+          color="orange"
+        />
 
-//     </div>
-//   );
-// };
+      </div>
 
-// export default PlatformDetail;
+      {/* 🔥 TABLE */}
+      <div className={styles.tableSection}>
+        <h2 className={styles.sectionTitle}>All Applications</h2>
+
+        <TableView
+          columns={columns}
+          data={tableData}
+          loading={loading}
+          onRowClick={(row) => row.onClick()}
+        />
+      </div>
+
+    </div>
+  );
+};
+
+export default PlatformDetail;

@@ -43,3 +43,12 @@
   color: #6b7280;
   font-size: 14px;
 }
+
+.clickableRow {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.clickableRow:hover {
+  background-color: #f5f7fb;
+}

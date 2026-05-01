@@ -13,6 +13,7 @@ import InterviewPrepPage from "./pages/jobs/interview-prep-page/InterviewPrepPag
 import CoverLetterPage from "./pages/jobs/cover-letter-page/CoverLetterPage";
 import Auth from "./pages/auth/Auth";
 import HomePage from "./pages/home-page/HomePage";
+import PlatformDetail from "./pages/platforms/platform-detail/PlatformDetail";
 
 // 🔐 Simple auth check (replace later with real auth)
 const isAuthenticated = () => {
@@ -59,7 +60,8 @@ function App() {
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/reports" element={<ReportPage />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/job-detail" element={<JobDetailPage />} />
+            <Route path="/platforms/:platformName" element={<PlatformDetail />} />
+            <Route path="/jobs/:jobId" element={<JobDetailPage />} />
             <Route path="/jobs/resumes" element={<ResumePage />} />
             <Route path="/jobs/interview-prep" element={<InterviewPrepPage />} />
             <Route path="/jobs/cover-letters" element={<CoverLetterPage />} />
