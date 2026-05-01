@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import logo from "../../assets/trackiva_logo.png";
+import { getProfile } from "../../api/auth";
 
 import {
   Menu,
@@ -19,112 +20,115 @@ import {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔑 TEMP auth (replace with context later)
   const isLoggedIn = !!localStorage.getItem("token");
 
   const menu = [
-    { path: "/", label: "Dashboard", icon: <LayoutDashboard size={20} /> },
+    { path: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={20} /> },
     { path: "/jobs", label: "My Jobs", icon: <Briefcase size={20} /> },
     { path: "/platforms", label: "Platforms", icon: <Layers size={20} /> },
     { path: "/analytics", label: "Analytics", icon: <BarChart3 size={20} /> },
     { path: "/reports", label: "Reports", icon: <MessageSquareWarning size={20} /> },
   ];
 
+  // ✅ Fetch user
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await getProfile();
+        setUser(res.data.data);
+      } catch (err) {
+        console.log(err.message || "Failed to fetch user");
+      }
+    };
+
+    if (isLoggedIn) fetchUser();
+  }, [isLoggedIn]);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
+  // 🔥 Hide navbar completely if not logged in
+  if (!isLoggedIn) return null;
 
   return (
     <>
       <nav className={styles.navbar}>
         {/* LEFT */}
         <div className={styles.left}>
-          {/* show menu ONLY if logged in */}
-          {isLoggedIn && (
-            <button
-              className={styles.menuBtn}
-              onClick={() => setMobileOpen(true)}
-            >
-              <Menu size={22} />
-            </button>
-          )}
+          {/* ✅ ONLY visible on mobile via CSS */}
+          <button
+            className={styles.menuBtn}
+            onClick={() => setMobileOpen(true)}
+          >
+            <Menu size={22} />
+          </button>
 
-          <div className={styles.logo} onClick={() => navigate("/")}>
+          <div className={styles.logo} onClick={() => navigate("/dashboard")}>
             <img src={logo} alt="logo" />
           </div>
         </div>
 
         {/* RIGHT */}
         <div className={styles.right}>
-          {!isLoggedIn ? (
-            <div className={styles.authButtons}>
-              <button
-                className={styles.loginBtn}
-                onClick={() => navigate("/login")}
-              >
-                Login
-              </button>
-              <button
-                className={styles.signupBtn}
-                onClick={() => navigate("/signup")}
-              >
-                Signup
-              </button>
-            </div>
-          ) : (
-            <div
-              className={styles.profile}
-              onClick={() => setOpen(!open)}
-            >
-              <img
-                src="/favicon.svg"
-                alt="profile"
-                className={styles.avatar}
-              />
+          <div
+            className={styles.profile}
+            onClick={() => setOpen(!open)}
+          >
+            <img
+              src={
+                user?.avatar?.url ||
+                `https://ui-avatars.com/api/?name=${user?.name || "User"}`
+              }
+              alt="profile"
+              className={styles.avatar}
+            />
 
-              <span className={styles.name}>Sakshi Kumari</span>
+            <span className={styles.name}>
+              {user?.name || "User"}
+            </span>
 
-              <ChevronDown
-                size={18}
-                className={`${styles.dropdownIcon} ${
-                  open ? styles.rotate : ""
-                }`}
-              />
+            <ChevronDown
+              size={18}
+              className={`${styles.dropdownIcon} ${
+                open ? styles.rotate : ""
+              }`}
+            />
 
-              {open && (
-                <div className={styles.dropdown}>
-                  <div
-                    className={styles.dropdownItem}
-                    onClick={() => {
-                      navigate("/profile");
-                      setOpen(false);
-                    }}
-                  >
-                    <User size={18} />
-                    <span>My Profile</span>
-                  </div>
-
-                  <div
-                    className={styles.dropdownItem}
-                    onClick={handleLogout}
-                  >
-                    <LogOut size={18} />
-                    <span>Logout</span>
-                  </div>
+            {open && (
+              <div className={styles.dropdown}>
+                <div
+                  className={styles.dropdownItem}
+                  onClick={() => {
+                    navigate("/profile");
+                    setOpen(false);
+                  }}
+                >
+                  <User size={18} />
+                  <span>My Profile</span>
                 </div>
-              )}
-            </div>
-          )}
+
+                <div
+                  className={styles.dropdownItem}
+                  onClick={handleLogout}
+                >
+                  <LogOut size={18} />
+                  <span>Logout</span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
 
-      {/* MOBILE SIDEBAR (only if logged in) */}
-      {mobileOpen && isLoggedIn && (
+      {/* MOBILE SIDEBAR */}
+      {mobileOpen && (
         <>
           <div
             className={styles.overlay}

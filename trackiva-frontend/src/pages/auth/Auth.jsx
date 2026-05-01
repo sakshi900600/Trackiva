@@ -1,69 +1,48 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
 import { MdEmail, MdLock, MdPerson } from "react-icons/md";
+import { GoogleLogin } from "@react-oauth/google";
 import { login, register } from "../../api/auth";
 import styles from "./Auth.module.css";
-import logo from "../../assets/trackiva_logo2.png";
+import logo from "../../assets/logo.png";
 
 const Auth = () => {
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  // Input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (error) setError("");
   };
 
-  // Tab switch
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     setError("");
     setFormData({ name: "", email: "", password: "" });
   };
 
-  // Submit
+  const handleAuthSuccess = (token) => {
+    localStorage.setItem("token", token);
+    window.location.href = "/dashboard";
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
-      let response;
-
-      if (activeTab === "login") {
-        response = await login({
-          email: formData.email,
-          password: formData.password,
-        });
-      } else {
-        response = await register(formData);
-      }
+      const response = activeTab === "login" 
+        ? await login({ email: formData.email, password: formData.password })
+        : await register(formData);
 
       const token = response?.data?.data?.token;
-
-      if (!token) {
-        throw new Error("Token not received");
-      }
-
-      // Save token
-      localStorage.setItem("token", token);
-
-      // Redirect
-      navigate("/");
+      if (!token) throw new Error("Authentication failed");
+      handleAuthSuccess(token);
     } catch (err) {
-      const message =
-        err.response?.data?.message || err.message || "Something went wrong";
-      setError(message);
+      setError(err.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -71,55 +50,36 @@ const Auth = () => {
 
   return (
     <div className={styles.authContainer}>
-      <div className={styles.backgroundCircles}>
-        {[...Array(15)].map((_, i) => (
-          <div key={i} className={styles.smallCircle}></div>
-        ))}
-      </div>
-
       <div className={styles.authCard}>
         <div className={styles.cardHeader}>
-          <img src={logo} alt="Trackiva Logo" className={styles.logo} />
+          {/* Logo Container for better control */}
+          <div className={styles.logoWrapper}>
+            <img src={logo} alt="Logo" className={styles.logo} />
+          </div>
 
           <div className={styles.tabContainer}>
             <button
-              type="button"
-              className={`${styles.tab} ${
-                activeTab === "login" ? styles.activeTab : ""
-              }`}
+              className={`${styles.tab} ${activeTab === "login" ? styles.activeTab : ""}`}
               onClick={() => handleTabChange("login")}
-            >
-              Login
-            </button>
-
+            >Login</button>
             <button
-              type="button"
-              className={`${styles.tab} ${
-                activeTab === "signup" ? styles.activeTab : ""
-              }`}
+              className={`${styles.tab} ${activeTab === "signup" ? styles.activeTab : ""}`}
               onClick={() => handleTabChange("signup")}
-            >
-              Sign Up
-            </button>
-
-            <div
-              className={`${styles.slider} ${
-                activeTab === "signup" ? styles.sliderRight : ""
-              }`}
-            />
+            >Sign Up</button>
+            <div className={`${styles.slider} ${activeTab === "signup" ? styles.sliderRight : ""}`} />
           </div>
         </div>
 
         {error && <div className={styles.errorAlert}>{error}</div>}
 
-        <button type="button" className={styles.googleBtn}>
-          <FcGoogle size={20} />
-          Continue with Google
-        </button>
-
-        <div className={styles.divider}>
-          <span>OR</span>
+        <div className={styles.googleWrapper}>
+          <GoogleLogin
+            onSuccess={(res) => handleAuthSuccess(res.credential)}
+            onError={() => setError("Google login failed")}
+          />
         </div>
+
+        <div className={styles.divider}><span>OR</span></div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           {activeTab === "signup" && (
@@ -127,15 +87,7 @@ const Auth = () => {
               <label className={styles.label}>Full Name</label>
               <div className={styles.inputWrapper}>
                 <MdPerson className={styles.inputIcon} />
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Enter your full name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className={styles.input}
-                />
+                <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required className={styles.input} />
               </div>
             </div>
           )}
@@ -144,15 +96,7 @@ const Auth = () => {
             <label className={styles.label}>Email Address</label>
             <div className={styles.inputWrapper}>
               <MdEmail className={styles.inputIcon} />
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
+              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required className={styles.input} />
             </div>
           </div>
 
@@ -160,34 +104,18 @@ const Auth = () => {
             <label className={styles.label}>Password</label>
             <div className={styles.inputWrapper}>
               <MdLock className={styles.inputIcon} />
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-                className={styles.input}
-              />
+              <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required className={styles.input} />
             </div>
           </div>
 
           {activeTab === "login" && (
             <div className={styles.forgotPassword}>
-              <Link to="/forgot-password">Forgot password?</Link>
+              <Link to="">Forgot password?</Link>
             </div>
           )}
 
-          <button
-            type="submit"
-            className={styles.submitBtn}
-            disabled={loading}
-          >
-            {loading
-              ? "Processing..."
-              : activeTab === "login"
-              ? "Login"
-              : "Create Account"}
+          <button type="submit" className={styles.submitBtn} disabled={loading}>
+            {loading ? "Processing..." : activeTab === "login" ? "Login" : "Create Account"}
           </button>
         </form>
       </div>

@@ -15,6 +15,9 @@
   padding: 20px;
   background: #f8fafc;
   overflow-y: auto;
+  border-radius: 15px;
+  margin: 8px;
+  border: 1.5px solid #e2e8f0;
 }
 
 /* responsive */

@@ -1,7 +1,7 @@
 /* TestimonialsSection.module.css */
 
 .section {
-  background: linear-gradient(160deg, #fdf8ff 0%, #f5f0ff 60%, #f0f7ff 100%);
+  background: #ffff;
   padding: 100px 48px;
   position: relative;
   overflow: hidden;
@@ -14,7 +14,7 @@
   position: absolute;
   top: 80px; left: -60px;
   width: 360px; height: 360px;
-  background: radial-gradient(circle, rgba(236,72,153,0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(236, 72, 154, 0.117) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -24,7 +24,7 @@
   position: absolute;
   bottom: 60px; right: -60px;
   width: 320px; height: 320px;
-  background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(245, 159, 11, 0.136) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }

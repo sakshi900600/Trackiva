@@ -114,13 +114,13 @@ const ListView = ({
         </div>
 
         {/* EMPTY STATE — only show when not using backend pagination */}
-{!loading && processedData.length === 0 && !meta && (
-  <div className={styles.emptyState}>
-    <div className={styles.emptyIcon}>📊</div>
-    <h3>No data found</h3>
-    <p>Try adjusting your search or filters</p>
-  </div>
-)}
+        {!loading && processedData.length === 0 && !meta && (
+          <div className={styles.emptyState}>
+            <div className={styles.emptyIcon}>📊</div>
+            <h3>No data found</h3>
+            <p>Try adjusting your search or filters</p>
+          </div>
+        )}
 
         {/* PAGINATION (styled like platform table) */}
         {!loading &&

@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Tasks.module.css";
 import TaskItem from "./TaskItem";
-import { Plus } from "lucide-react";
-
-import {
-  getTodos,
-  createTodo,
-  updateTodo,
-  deleteTodo,
-} from "../../../api/todo";
+import { Plus, Target } from "lucide-react";
+import { getTodos, createTodo, updateTodo, deleteTodo } from "../../../api/todo";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Load tasks
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -27,14 +20,11 @@ const Tasks = () => {
         setLoading(false);
       }
     };
-
     fetchTasks();
   }, []);
 
-  // Add Task
   const addTask = async () => {
     if (!input.trim()) return;
-
     try {
       const newTask = await createTodo(input);
       setTasks([newTask, ...tasks]);
@@ -44,20 +34,19 @@ const Tasks = () => {
     }
   };
 
-  // Toggle
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") addTask();
+  };
+
   const toggleTask = async (id, current) => {
     try {
-      const updated = await updateTodo(id, {
-        completed: !current,
-      });
-
+      const updated = await updateTodo(id, { completed: !current });
       setTasks(tasks.map((t) => (t._id === id ? updated : t)));
     } catch (err) {
       console.log(err);
     }
   };
 
-  // Delete
   const removeTask = async (id) => {
     try {
       await deleteTodo(id);
@@ -67,7 +56,6 @@ const Tasks = () => {
     }
   };
 
-  // Edit
   const editTask = async (id, newText) => {
     try {
       const updated = await updateTodo(id, { text: newText });
@@ -78,60 +66,76 @@ const Tasks = () => {
   };
 
   const completedCount = tasks.filter((t) => t.completed).length;
-  const progress = tasks.length
-    ? (completedCount / tasks.length) * 100
-    : 0;
+  const progress = tasks.length ? (completedCount / tasks.length) * 100 : 0;
 
   return (
     <div className={styles.container}>
       {/* Header */}
       <div className={styles.header}>
-        <div>
-          <h2>This Week’s Goals</h2>
-          <p className={styles.sub}>Stay consistent 🚀</p>
+        <div className={styles.headerLeft}>
+          <div className={styles.headerIcon}>
+            <Target size={16} />
+          </div>
+          <div>
+            <h2 className={styles.title}>Weekly Goals</h2>
+            <p className={styles.subtitle}>Stay consistent 🚀</p>
+          </div>
         </div>
-
-        <span className={styles.progressText}>
+        <span className={styles.progressBadge}>
           {completedCount}/{tasks.length}
         </span>
       </div>
 
-      {/* Progress */}
-      <div className={styles.progressBar}>
-        <div
-          className={styles.progress}
-          style={{ width: `${progress}%` }}
-        />
+      {/* Progress bar */}
+      <div className={styles.progressWrap}>
+        <div className={styles.progressBar}>
+          <div
+            className={styles.progressFill}
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <span className={styles.progressLabel}>{Math.round(progress)}%</span>
       </div>
-
-      <div className={styles.divider} />
 
       {/* Add Task */}
       <div className={styles.addTask}>
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Add a new task..."
+          onKeyDown={handleKeyDown}
+          placeholder="Add a goal for this week..."
+          className={styles.addInput}
         />
-
-        <button onClick={addTask}>
+        <button className={styles.addBtn} onClick={addTask}>
           <Plus size={16} />
-          Add
         </button>
       </div>
 
-      {/* List */}
+      {/* Task List */}
       <div className={styles.list}>
         {loading ? (
-          <p>Loading...</p>
+          <div className={styles.skeletonList}>
+            {[1, 2, 3].map((i) => (
+              <div key={i} className={styles.skeletonItem}>
+                <div className={styles.skeletonCircle} />
+                <div className={styles.skeletonLine} />
+              </div>
+            ))}
+          </div>
+        ) : tasks.length === 0 ? (
+          <div className={styles.emptyState}>
+            <span className={styles.emptyEmoji}>🎯</span>
+            <p className={styles.emptyTitle}>No goals yet</p>
+            <p className={styles.emptyDesc}>
+              Add your first weekly goal above and stay on track.
+            </p>
+          </div>
         ) : (
           tasks.map((task) => (
             <TaskItem
               key={task._id}
               task={task}
-              toggleTask={() =>
-                toggleTask(task._id, task.completed)
-              }
+              toggleTask={() => toggleTask(task._id, task.completed)}
               deleteTask={() => removeTask(task._id)}
               editTask={editTask}
             />

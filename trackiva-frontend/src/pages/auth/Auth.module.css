@@ -4,209 +4,146 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
-  position: relative;
-  font-family: 'Inter', sans-serif;
+  background: #f6f3ff;
   padding: 1.5rem;
-  overflow: hidden;
 }
 
-/* Background Animated Circles */
-.backgroundCircles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-
-.smallCircle {
-  position: absolute;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(79, 70, 229, 0.05));
-  border-radius: 50%;
-  animation: floatAround 25s infinite ease-in-out;
-}
-
-/* Creating varied positions and sizes for the small circles */
-.smallCircle:nth-child(1) { width: 40px; height: 40px; top: 10%; left: 15%; animation-delay: 0s; }
-.smallCircle:nth-child(2) { width: 80px; height: 80px; top: 70%; left: 10%; animation-delay: -2s; }
-.smallCircle:nth-child(3) { width: 30px; height: 30px; top: 40%; left: 80%; animation-delay: -5s; }
-.smallCircle:nth-child(4) { width: 100px; height: 100px; top: 20%; left: 60%; animation-delay: -1s; }
-.smallCircle:nth-child(5) { width: 50px; height: 50px; top: 80%; left: 40%; animation-delay: -8s; }
-.smallCircle:nth-child(6) { width: 20px; height: 20px; top: 5%; left: 90%; animation-delay: -3s; }
-.smallCircle:nth-child(7) { width: 60px; height: 60px; top: 55%; left: 85%; animation-delay: -12s; }
-.smallCircle:nth-child(8) { width: 45px; height: 45px; top: 30%; left: 5%; animation-delay: -4s; }
-.smallCircle:nth-child(9) { width: 90px; height: 90px; top: 85%; left: 75%; animation-delay: -10s; }
-.smallCircle:nth-child(10) { width: 35px; height: 35px; top: 15%; left: 35%; animation-delay: -15s; }
-.smallCircle:nth-child(11) { width: 70px; height: 70px; top: 45%; left: 25%; animation-delay: -6s; }
-.smallCircle:nth-child(12) { width: 25px; height: 25px; top: 90%; left: 20%; animation-delay: -7s; }
-.smallCircle:nth-child(13) { width: 55px; height: 55px; top: 65%; left: 55%; animation-delay: -9s; }
-.smallCircle:nth-child(14) { width: 110px; height: 110px; top: 10%; left: 80%; animation-delay: -11s; }
-.smallCircle:nth-child(15) { width: 40px; height: 40px; top: 50%; left: 50%; animation-delay: -13s; }
-
-@keyframes floatAround {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-}
-
-/* Auth Card */
 .authCard {
   max-width: 440px;
   width: 100%;
-  background: rgba(255, 255, 255, 0.95); /* Slight transparency to see circles behind */
-  backdrop-filter: blur(8px); /* Modern glass effect */
+  background: #fff;
   padding: 2.5rem;
   border-radius: 24px;
-  border: 1px solid rgba(229, 231, 235, 0.8);
-  z-index: 1;
-  position: relative;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 40px rgba(124, 58, 237, 0.1);
 }
 
-.cardHeader {
-  text-align: center;
-  margin-bottom: 2rem;
+/* --- LOGO STYLES --- */
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .logo {
-  height: 52px;
-  margin-bottom: 1.5rem;
+  max-width: 180px; /* Adjust this to your desired size */
+  height: auto;
+  object-fit: contain;
+  transition: all 0.3s ease;
 }
 
-/* Tab Slider */
+/* Responsive Logo for mobile */
+@media (max-width: 480px) {
+  .logo {
+    max-width: 140px;
+  }
+  .authCard {
+    padding: 1.5rem;
+  }
+}
+
+/* --- FORM & TABS --- */
+.cardHeader { text-align: center; margin-bottom: 2rem; }
+
 .tabContainer {
   position: relative;
   display: flex;
-  background: #f1f5f9;
-  border-radius: 14px;
-  padding: 5px;
-  gap: 5px;
+  background: #ede9fe;
+  border-radius: 12px;
+  padding: 4px;
 }
 
 .tab {
   flex: 1;
-  padding: 12px 0;
-  background: transparent;
+  padding: 10px;
   border: none;
-  font-size: 14px;
+  background: none;
   font-weight: 600;
-  color: #64748b;
+  color: #6b7280;
   cursor: pointer;
-  position: relative;
   z-index: 2;
-  transition: color 0.3s;
 }
 
-.activeTab { color: #ffffff; }
+.activeTab { color: #fff; }
 
 .slider {
   position: absolute;
-  top: 5px;
-  left: 5px;
-  width: calc(50% - 5px);
-  height: calc(100% - 10px);
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
-  border-radius: 10px;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  top: 4px; left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: #7c3aed;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
   z-index: 1;
 }
 
 .sliderRight { transform: translateX(100%); }
 
-/* Google Button */
-.googleBtn {
-  width: 100%;
-  padding: 0.8rem;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
+.googleWrapper {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  font-size: 14px;
-  font-weight: 500;
-  color: #1e293b;
-  cursor: pointer;
-  transition: all 0.2s;
   margin-bottom: 1.5rem;
 }
 
-.googleBtn:hover {
-  background: #f8fafc;
-  border-color: #cbd5e1;
-}
-
-/* Divider */
 .divider {
   text-align: center;
   position: relative;
   margin: 1.5rem 0;
-}
-
-.divider::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #e2e8f0;
-  z-index: 1;
+  border-bottom: 1px solid #e9d5ff;
 }
 
 .divider span {
-  background: #fff;
   position: relative;
-  z-index: 2;
-  padding: 0 1rem;
-  color: #94a3b8;
+  top: 10px;
+  background: #fff;
+  padding: 0 10px;
+  color: #a78bfa;
   font-size: 12px;
-  font-weight: 600;
 }
 
-/* Form */
-.form { display: flex; flex-direction: column; gap: 1.25rem; }
-.inputGroup { display: flex; flex-direction: column; gap: 8px; }
-.label { font-size: 13px; font-weight: 600; color: #475569; }
+.form { display: flex; flex-direction: column; gap: 1rem; margin-top: 10px;}
+
+.inputGroup { display: flex; flex-direction: column; gap: 5px; text-align: left;}
+
+.label { font-size: 13px; font-weight: 600; color: #4c1d95; }
+
 .inputWrapper { position: relative; }
-.inputIcon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a78bfa;
+}
 
 .input {
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 2.8rem;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 14px;
-  transition: all 0.2s;
-}
-
-.input:focus {
+  padding: 12px 12px 12px 40px;
+  border: 1.5px solid #e9d5ff;
+  border-radius: 10px;
   outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
-.forgotPassword { text-align: right; }
-.forgotPassword a { color: #6366f1; font-size: 13px; font-weight: 500; text-decoration: none; }
+.input:focus { border-color: #7c3aed; }
 
 .submitBtn {
   width: 100%;
-  padding: 0.9rem;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
-  color: white;
+  padding: 12px;
+  background: #7c3aed;
+  color: #fff;
   border: none;
-  border-radius: 12px;
-  font-weight: 600;
+  border-radius: 10px;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 10px;
 }
 
-.submitBtn:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+.errorAlert {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 14px;
 }
-
-.submitBtn:disabled { opacity: 0.7; cursor: not-allowed; }

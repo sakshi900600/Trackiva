@@ -1,55 +1,192 @@
+/* RecentJobs.module.css */
 .container {
-  width: 100%;
-  padding: 20px;
-  border-radius: 18px;
-  border: 1px solid #e5e7eb;
   background: #ffffff;
+  border: 1.5px solid rgba(124, 58, 237, 0.08);
+  border-radius: 22px;
+  padding: 24px 24px 20px;
+  box-shadow: 0 2px 16px rgba(100, 60, 200, 0.06);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
-/* Title */
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(124, 58, 237, 0.09);
+  color: #7C3AED;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .title {
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0d0d14;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 2px 0 0;
+  font-weight: 400;
+}
+
+.viewAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
   font-weight: 600;
-  margin-bottom: 20px; /* 👈 added spacing */
+  color: #7C3AED;
+  background: rgba(124, 58, 237, 0.07);
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  border-radius: 50px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  white-space: nowrap;
+}
+
+.viewAllBtn:hover {
+  background: rgba(124, 58, 237, 0.13);
+  transform: translateY(-1px);
 }
 
 /* List */
 .list {
   display: flex;
   flex-direction: column;
-  gap: 14px; /* 👈 spacing between cards */
+  gap: 10px;
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 2px;
 }
 
-/* Divider above button */
-.divider {
-  height: 1px;
-  background: #e5e7eb;
-  margin: 18px 0;
+.list::-webkit-scrollbar { width: 4px; }
+.list::-webkit-scrollbar-track { background: transparent; }
+.list::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.15);
+  border-radius: 4px;
 }
 
-/* Button */
-.viewAll {
-  width: 100%;
-  background: transparent;
-  border: none;
-  color: #4f46e5;
-  font-weight: 500;
+/* Skeleton */
+.skeletonList { display: flex; flex-direction: column; gap: 10px; }
 
+.skeletonCard {
+  background: #f8f6ff;
+  border: 1px solid #ede9fe;
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.skeletonRow {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
-
-  cursor: pointer;
+  gap: 12px;
 }
 
-.viewAll:hover {
-  text-decoration: underline;
+.skeletonBlock {
+  background: linear-gradient(90deg, #f0eeff 25%, #e5e0ff 50%, #f0eeff 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 20px;
+  flex: 1;
+  justify-content: center;
+}
+
+.emptyIllustration {
+  width: 130px;
+  margin-bottom: 18px;
+  opacity: 0.88;
+}
+
+.emptyIllustration img { width: 100%; height: auto; }
+
+.emptyTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d0d14;
+  margin: 0 0 7px;
+}
+
+.emptyDesc {
+  font-size: 13px;
+  color: #9ca3af;
+  line-height: 1.65;
+  margin: 0 0 22px;
+  max-width: 280px;
+}
+
+.emptyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 22px;
+  background: linear-gradient(135deg, #7C3AED, #6d28d9);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.32);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.emptyBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.42);
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .title {
-    font-size: 18px;
-  }
+@media (max-width: 860px) {
+  .container { padding: 20px 18px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 16px 14px; border-radius: 18px; }
+  .title { font-size: 14.5px; }
+  .viewAllBtn { padding: 6px 13px; font-size: 12px; }
 }

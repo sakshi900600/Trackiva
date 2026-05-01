@@ -9,7 +9,7 @@ export default function Hero() {
       {/* Hex SVG pattern background */}
       <div className={styles.bgPattern}>
         <svg
-          width="100%" height="60%"
+          width="100%" height="70%"
           viewBox="0 0 1440 900"
           preserveAspectRatio="xMidYMid slice"
           xmlns="http://www.w3.org/2000/svg"

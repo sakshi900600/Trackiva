@@ -18,15 +18,6 @@ const Analytics = () => {
     return <div className={styles.loading}>Loading analytics...</div>;
   }
 
-  // ⚪ Empty state
-  if (!data || data.overview.total === 0) {
-    return (
-      <div className={styles.empty}>
-        <h3>No Analytics Data</h3>
-        <p>Start adding jobs to see insights 🚀</p>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.container}>
