@@ -1,66 +1,85 @@
 const dummyJobDetail = {
-  id: "job_1",
-
-  title: "Product Designer",
-  company: "Spotify",
-
-  status: "Applied", // Applied | Screening | Interview | Offer
+  _id: "job_001",
+  title: "Senior Frontend Engineer",
+  company: "Stripe",
+  status: "Interview",
+  platform: { name: "LinkedIn", type: "Job Board" },
+  confidence: 72,
 
   jobInfo: {
-    location: "New York, NY",
-    salary: "$115k - $165k",
-    appliedDate: "2026-04-02",
-    lastUpdated: "2026-04-02",
+    location: "San Francisco, CA (Hybrid)",
+    salary: "$140,000 – $180,000",
+    appliedDate: "Apr 18, 2025",
+    lastUpdated: "Apr 26, 2025",
+  },
+
+  links: {
+    jobUrl: "https://stripe.com/jobs/123",
+    applicationUrl: "https://stripe.com/apply/123",
+    companySite: "https://stripe.com",
+    recruiterProfile: "https://linkedin.com/in/recruiter",
+  },
+
+  tags: ["React", "TypeScript", "Fintech", "Remote-friendly"],
+
+  statusHistory: [
+    { status: "Applied", date: "Apr 18, 2025" },
+    { status: "Screening", date: "Apr 21, 2025" },
+    { status: "Interview", date: "Apr 26, 2025" },
+  ],
+
+  resume: {
+    name: "SreejithCV_2025.pdf",
+    uploadedAt: "Apr 17, 2025",
   },
 
   notes: [
     {
-      id: "note_1",
-      text: "Strong focus on UX research.",
-      createdAt: "2026-04-02",
+      id: "n1",
+      text: "Spoke with recruiter Sarah — she mentioned the team is growing fast and values ownership.",
+      createdAt: "2025-04-21T10:30:00Z",
+    },
+    {
+      id: "n2",
+      text: "Technical round focuses on system design + React performance patterns.",
+      createdAt: "2025-04-24T14:00:00Z",
     },
   ],
 
   reminders: [
     {
-      id: "rem_1",
-      text: "Follow up on application",
-      date: "2026-04-05",
+      id: "r1",
+      text: "Send thank-you email after interview",
+      date: "2025-04-28",
       completed: false,
     },
     {
-      id: "rem_2",
-      text: "Prepare for interview",
-      date: "2026-04-08",
+      id: "r2",
+      text: "Follow up if no response by May 5",
+      date: "2025-05-05",
       completed: false,
     },
   ],
-
-  confidence: 86, // 0 - 100
-
-  platform: {
-    name: "LinkedIn",
-    type: "Job Board",
-  },
 
   contacts: [
     {
-      id: "contact_1",
-      name: "John Doe",
+      id: "c1",
+      name: "Sarah Mitchell",
       role: "Recruiter",
-      email: "john@spotify.com",
+      email: "sarah.m@stripe.com",
+    },
+    {
+      id: "c2",
+      name: "James Forrest",
+      role: "Engineering Manager",
+      email: "jforrest@stripe.com",
     },
   ],
-
-  resume: {
-    name: "resume_v3.pdf",
-    uploadedAt: "2026-04-01",
-  },
 
   extras: {
     referral: true,
     coverLetter: true,
-    skillGap: ["Figma Advanced", "User Research"],
+    skillGap: ["GraphQL", "Go basics"],
   },
 };
 

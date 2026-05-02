@@ -1,77 +1,41 @@
-// Pipeline stages (order matters)
-export const PIPELINE_STAGES = [
-  "Applied",
-  "Screening",
-  "Interview",
-  "Offer",
-];
+export const PIPELINE_STAGES = ["Applied", "Screening", "Interview", "Offer"];
 
-// Get index of current stage
-export const getStageIndex = (status) => {
-  return PIPELINE_STAGES.indexOf(status);
-};
+export const getStageIndex = (status) => PIPELINE_STAGES.indexOf(status);
 
-// Get progress percentage (0 → 100)
 export const getProgressPercent = (status) => {
   const index = getStageIndex(status);
-  const totalStages = PIPELINE_STAGES.length - 1;
-
   if (index === -1) return 0;
-
-  return (index / totalStages) * 100;
+  return (index / (PIPELINE_STAGES.length - 1)) * 100;
 };
 
-// Check if a stage is completed
 export const isStageCompleted = (currentStatus, stage) => {
   const currentIndex = getStageIndex(currentStatus);
   const stageIndex = getStageIndex(stage);
-
   if (currentIndex === -1 || stageIndex === -1) return false;
-
   return stageIndex <= currentIndex;
 };
 
-// Get next stage (optional helper)
-export const getNextStage = (currentStatus) => {
-  const index = getStageIndex(currentStatus);
+export const isCurrentStage = (currentStatus, stage) =>
+  currentStatus === stage;
 
-  if (index === -1) return PIPELINE_STAGES[0];
-
-  if (index < PIPELINE_STAGES.length - 1) {
-    return PIPELINE_STAGES[index + 1];
-  }
-
-  return currentStatus;
-};
-
-// Get previous stage (optional)
-export const getPreviousStage = (currentStatus) => {
-  const index = getStageIndex(currentStatus);
-
-  if (index > 0) {
-    return PIPELINE_STAGES[index - 1];
-  }
-
-  return currentStatus;
-};
-
-// Status color mapping (for UI styling)
 export const getStatusColor = (status) => {
-  switch (status) {
-    case "Applied":
-      return "#6366f1"; // indigo
-    case "Screening":
-      return "#f59e0b"; // amber
-    case "Interview":
-      return "#3b82f6"; // blue
-    case "Offer":
-      return "#22c55e"; // green
-    default:
-      return "#9ca3af"; // gray
-  }
+  const map = {
+    Applied: "#6366f1",
+    Screening: "#f59e0b",
+    Interview: "#3b82f6",
+    Offer: "#10b981",
+    Rejected: "#ef4444",
+  };
+  return map[status] || "#94a3b8";
 };
 
-// Validate status (safety check)
-export const isValidStatus = (status) => {
-  return PIPELINE_STAGES.includes(status);
+export const getStatusBg = (status) => {
+  const map = {
+    Applied: "#eef2ff",
+    Screening: "#fef3c7",
+    Interview: "#dbeafe",
+    Offer: "#d1fae5",
+    Rejected: "#fee2e2",
+  };
+  return map[status] || "#f1f5f9";
 };

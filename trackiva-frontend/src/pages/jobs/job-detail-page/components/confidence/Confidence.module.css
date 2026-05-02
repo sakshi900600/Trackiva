@@ -1,93 +1,162 @@
 .card {
-  backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 16px;
-  padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
 }
 
-/* Title */
 .title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 16px;
 }
 
-/* Circle */
+.body {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
 .circleWrapper {
   position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 16px;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
 }
 
-.svg {
-  transform: rotate(-90deg);
-}
+.svg { display: block; transform: rotate(-90deg); }
 
-/* Background circle */
-.bg {
+.bgCircle {
   fill: none;
-  stroke: #e5e7eb;
-  stroke-width: 10;
+  stroke: var(--surface-2);
+  stroke-width: 7;
 }
 
-/* Progress circle */
-.progress {
+.progressCircle {
   fill: none;
-  stroke: #6366f1;
-  stroke-width: 10;
+  stroke-width: 7;
   stroke-linecap: round;
-  transition: stroke-dashoffset 0.5s ease;
 }
 
-/* Center text */
-.centerText {
+.center {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20px;
-  font-weight: 600;
-}
-
-/* Input */
-.inputSection {
+  inset: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 1px;
 }
 
-.input {
-  width: 60px;
-  padding: 6px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  text-align: center;
+.pct {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  transition: color 0.3s;
 }
 
-.saveBtn {
-  background: #6366f1;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
+.pctSign {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  align-self: flex-end;
+  margin-bottom: 3px;
+}
+
+.rightSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--border);
+  outline: none;
   cursor: pointer;
 }
 
-.saveBtn:hover {
-  background: #4f46e5;
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--slider-color, var(--accent));
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(255,255,255,1), 0 0 0 4px var(--slider-color, var(--accent));
+  transition: transform 0.15s;
+}
+.slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+.inputRow {
+  display: flex;
+  gap: 6px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 480px) {
-  .circleWrapper {
-    width: 100px;
-    height: 100px;
-  }
+.numberInput {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.numberInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+}
 
-  .centerText {
-    font-size: 16px;
-  }
+.saveBtn {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.saveBtn:hover { background: var(--accent-hover); }
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .card { padding: 16px; }
+  .body { flex-direction: column; align-items: center; gap: 16px; }
+  .circleWrapper { width: 120px; height: 120px; }
+  .circleWrapper svg { width: 120px; height: 120px; }
+  .rightSection { width: 100%; }
+  .pct { font-size: 28px; }
+  .inputRow { width: 100%; }
+  .numberInput { flex: 1; }
+  .saveBtn { min-width: 60px; }
+}
+
+@media (max-width: 400px) {
+  .card { padding: 12px; }
+  .circleWrapper { width: 100px; height: 100px; }
+  .circleWrapper svg { width: 100px; height: 100px; }
+  .pct { font-size: 22px; }
 }

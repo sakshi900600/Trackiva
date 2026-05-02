@@ -1,32 +1,110 @@
 .card {
-  backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 16px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 12px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 14px;
 }
 
 .actions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .btn {
-  background: #6366f1;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
   cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  font-family: var(--font-body);
+}
+.btn:hover { transform: translateX(2px); }
+
+.btnIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.btn:hover {
-  background: #4f46e5;
+.btnContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.btnLabel {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.btnDesc {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+/* Color variants */
+.blue {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+.blue .btnIcon { background: #dbeafe; color: #2563eb; }
+.blue:hover { background: #dbeafe; }
+
+.purple {
+  background: #fdf4ff;
+  border-color: #e9d5ff;
+  color: #7c3aed;
+}
+.purple .btnIcon { background: #ede9fe; color: #7c3aed; }
+.purple:hover { background: #ede9fe; }
+
+.red {
+  background: var(--danger-light);
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+.red .btnIcon { background: #fee2e2; color: #ef4444; }
+.red:hover { background: #fee2e2; }
+
+.green {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+.green .btnIcon { background: #dcfce7; color: #16a34a; }
+.green:hover { background: #dcfce7; }
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .card { padding: 16px; }
+  .btn { padding: 10px 11px; gap: 10px; }
+  .btnIcon { width: 28px; height: 28px; border-radius: 6px; }
+  .btnLabel { font-size: 12px; }
+  .btnDesc { font-size: 10px; }
+}
+
+@media (max-width: 400px) {
+  .card { padding: 12px; }
+  .actions { gap: 5px; }
+  .btn { padding: 9px 10px; }
 }

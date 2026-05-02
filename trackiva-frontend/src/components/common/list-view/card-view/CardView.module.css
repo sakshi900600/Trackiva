@@ -1,80 +1,354 @@
+/* CardView.module.css */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  gap: 18px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+/* ── Card ── */
 .card {
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 14px;
-
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-
+  background: #ffffff;
+  border: 1.5px solid rgba(124, 58, 237, 0.09);
+  border-radius: 18px;
+  padding: 0 0 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(124, 58, 237, 0.13);
+  border-color: rgba(124, 58, 237, 0.20);
 }
 
-.title {
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 6px;
+/* Top accent color bar */
+.cardAccentBar {
+  height: 4px;
+  width: 100%;
+  opacity: 0.75;
+  flex-shrink: 0;
+  transition: opacity 0.22s;
+}
+
+.card:hover .cardAccentBar { opacity: 1; }
+
+/* Header — avatar + status + link */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 10px;
+}
+
+.avatarWrap { flex-shrink: 0; }
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7C3AED, #a78bfa);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.22);
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+
+.linkIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #f8f6ff;
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  color: #a78bfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, color 0.18s;
+  flex-shrink: 0;
+}
+
+.linkIcon:hover {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7C3AED;
+}
+
+/* Role + Company */
+.cardMeta {
+  padding: 0 18px 12px;
+}
+
+.role {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d0d14;
+  margin: 0 0 4px;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .company {
-  font-size: 13px;
+  font-size: 12.5px;
   color: #6b7280;
-  margin-bottom: 10px;
+  margin: 0;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.meta {
+/* Details */
+.details {
+  padding: 0 18px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
 }
 
-.status {
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: #9ca3af;
   font-weight: 500;
 }
 
-/* status colors */
-.Applied {
-  background: #f3f4f6;
-  color: #374151;
+.detailItem svg { flex-shrink: 0; color: #c4b5fd; }
+
+.detailItem span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.Interview {
-  background: #ede9fe;
-  color: #6d28d9;
+/* Divider */
+.cardDivider {
+  height: 1px;
+  background: #f3f0ff;
+  margin: 0 18px 14px;
 }
 
-.Offer {
-  background: #dcfce7;
-  color: #166534;
+/* Footer — confidence + salary */
+.cardFooter {
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.Rejected {
-  background: #fee2e2;
-  color: #991b1b;
+.confidenceWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
 }
 
-.location {
+.confidenceBarBg {
+  flex: 1;
+  height: 5px;
+  background: #f0eeff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.confidenceBarFill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.6s ease;
+  min-width: 4px;
+}
+
+.confidenceLabel {
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.salary {
   font-size: 12px;
-  color: #6b7280;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.09);
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-/* states */
+.salaryNull {
+  font-size: 11px;
+  color: #d1d5db;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Tags */
+.tags {
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7C3AED;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.tagMore {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9ca3af;
+  background: #f3f4f6;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+/* ── Skeleton Loading ── */
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  gap: 18px;
+}
+
+.skeletonCard {
+  background: #fff;
+  border: 1.5px solid #f0eeff;
+  border-radius: 18px;
+  padding: 0 0 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeletonAccent {
+  height: 4px;
+  background: linear-gradient(90deg, #f0eeff 25%, #e5e0ff 50%, #f0eeff 75%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+.skeletonHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px 0;
+}
+
+.skeletonAvatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #f0eeff 25%, #e5e0ff 50%, #f0eeff 75%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+.skeletonBadge {
+  width: 70px;
+  height: 24px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #f0eeff 25%, #e5e0ff 50%, #f0eeff 75%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+.skeletonLine {
+  margin: 0 18px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #f0eeff 25%, #e5e0ff 50%, #f0eeff 75%);
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeletonPulse {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Empty / State ── */
 .state {
-  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 60px 20px;
+  font-size: 14px;
+  color: #9ca3af;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   text-align: center;
-  color: #6b7280;
+}
+
+.stateEmoji { font-size: 36px; }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .grid,
+  .skeletonGrid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid,
+  .skeletonGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .avatar { width: 38px; height: 38px; font-size: 16px; border-radius: 11px; }
+  .role { font-size: 13.5px; }
+  .company { font-size: 12px; }
+  .details { gap: 5px; }
+  .detailItem { font-size: 11px; }
+  .cardFooter { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+@media (max-width: 380px) {
+  .grid,
+  .skeletonGrid { grid-template-columns: 1fr; }
 }

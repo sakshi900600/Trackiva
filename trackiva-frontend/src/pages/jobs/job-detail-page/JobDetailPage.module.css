@@ -1,85 +1,319 @@
-.container {
-  padding: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* ─── Root Variables ─────────────────────────────────────── */
+:root {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --border: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: #eff6ff;
+  --danger: #ef4444;
+  --danger-light: #fef2f2;
+  --success: #10b981;
+  --success-light: #ecfdf5;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
 }
 
-/* HEADER */
-.header {
-  margin-bottom: 20px;
+/* ─── Page ───────────────────────────────────────────────── */
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  padding: 0 0 60px;
+}
+
+/* ─── Topbar ─────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .backBtn {
-  background: transparent;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.headerContent {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
-
-.title {
-  font-size: 26px;
-  font-weight: 700;
-}
-
-.company {
+  gap: 6px;
+  font-family: var(--font-body);
   font-size: 14px;
-  color: #6b7280;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+.backBtn:hover {
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+.topbarActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.editBtn {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.editBtn:hover {
+  background: var(--border);
+  border-color: var(--border-hover);
 }
 
 .deleteBtn {
-  background: #ef4444;
-  color: white;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--danger);
+  background: var(--danger-light);
+  border: 1px solid #fca5a5;
+  border-radius: var(--radius-sm);
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.deleteBtn:hover { background: #fee2e2; }
+
+.confirmRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.confirmText {
+  font-size: 13px;
+  color: var(--danger);
+  font-weight: 500;
+}
+.confirmYes {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--danger);
   border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.confirmYes:hover { background: #dc2626; }
+.confirmNo {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 7px 14px;
   cursor: pointer;
 }
 
-/* GRID */
+/* ─── Hero ───────────────────────────────────────────────── */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 32px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.heroLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.companyLogo {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+}
+
+.heroInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.jobTitle {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.heroMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.companyName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.heroDot { color: var(--text-muted); font-size: 12px; }
+
+.heroLocation {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.heroRight { flex-shrink: 0; }
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.statusBadge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ─── Grid ───────────────────────────────────────────────── */
 .grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 360px;
   gap: 20px;
+  padding: 24px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: start;
 }
 
-/* LEFT */
-.left {
+.left, .right {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  min-width: 0;
 }
 
-/* RIGHT */
-.right {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: 1fr 340px;
+    padding: 20px 24px;
+    gap: 16px;
+  }
 }
 
-/* RESPONSIVE */
 @media (max-width: 1024px) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 300px;
+    padding: 16px 20px;
+    gap: 14px;
   }
+  .hero { padding: 20px 20px; }
+  .topbar { padding: 12px 20px; }
+}
+
+@media (max-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .hero {
+    padding: 18px 16px;
+  }
+  .topbar { padding: 10px 16px; }
+  .jobTitle { font-size: 19px; }
+}
+
+@media (max-width: 600px) {
+  .topbar { padding: 10px 12px; }
+  .hero { padding: 14px 12px; gap: 12px; }
+  .grid { padding: 10px 12px; gap: 10px; }
+  .jobTitle { font-size: 17px; }
+  .companyLogo { width: 46px; height: 46px; font-size: 18px; border-radius: 11px; }
+  .heroLocation { font-size: 12px; }
+  .companyName { font-size: 13px; }
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 20px;
-  }
-
-  .headerContent {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .deleteBtn {
-    width: 100%;
-  }
+  .topbar { padding: 8px 10px; flex-wrap: wrap; gap: 8px; }
+  .backBtn { font-size: 13px; padding: 5px 8px; }
+  .editBtn, .deleteBtn { padding: 6px 10px; font-size: 12px; }
+  .companyLogo { width: 40px; height: 40px; font-size: 16px; border-radius: 10px; }
+  .jobTitle { font-size: 16px; }
+  .heroLeft { gap: 10px; }
+  .grid { padding: 8px 10px; gap: 8px; }
+  .left, .right { gap: 10px; }
+  .statusBadge { font-size: 12px; padding: 5px 11px; }
+  .confirmRow { gap: 6px; }
+  .confirmYes, .confirmNo { font-size: 12px; padding: 6px 10px; }
 }

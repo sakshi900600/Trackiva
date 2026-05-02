@@ -4,74 +4,85 @@ import styles from "./Extras.module.css";
 const Extras = ({ extras, setExtras }) => {
   const [skillInput, setSkillInput] = useState("");
 
-  // Toggle boolean fields
-  const toggleField = (field) => {
-    setExtras((prev) => ({
-      ...prev,
-      [field]: !prev[field],
-    }));
-  };
+  const toggle = (field) => setExtras((prev) => ({ ...prev, [field]: !prev[field] }));
 
-  // Add skill
   const addSkill = () => {
-    if (!skillInput.trim()) return;
-
-    setExtras((prev) => ({
-      ...prev,
-      skillGap: [...prev.skillGap, skillInput],
-    }));
-
+    const s = skillInput.trim();
+    if (!s || extras.skillGap.includes(s)) return;
+    setExtras((prev) => ({ ...prev, skillGap: [...prev.skillGap, s] }));
     setSkillInput("");
   };
 
-  // Remove skill
-  const removeSkill = (skill) => {
-    setExtras((prev) => ({
-      ...prev,
-      skillGap: prev.skillGap.filter((s) => s !== skill),
-    }));
-  };
+  const removeSkill = (skill) =>
+    setExtras((prev) => ({ ...prev, skillGap: prev.skillGap.filter((s) => s !== skill) }));
 
   return (
     <div className={styles.card}>
-      <h3 className={styles.title}>Extras</h3>
+      <h3 className={styles.title}>Application Extras</h3>
 
-      {/* Referral */}
-      <div className={styles.row}>
-        <span>Referral</span>
-        <button onClick={() => toggleField("referral")}>
-          {extras.referral ? "Yes" : "No"}
-        </button>
+      <div className={styles.toggles}>
+        <div className={styles.toggleRow}>
+          <div className={styles.toggleLeft}>
+            <span className={styles.toggleIcon}>🤝</span>
+            <div>
+              <p className={styles.toggleLabel}>Referral</p>
+              <p className={styles.toggleDesc}>Applied via referral?</p>
+            </div>
+          </div>
+          <button
+            className={`${styles.toggle} ${extras.referral ? styles.on : ""}`}
+            onClick={() => toggle("referral")}
+          >
+            <span className={styles.thumb} />
+          </button>
+        </div>
+
+        <div className={styles.divider} />
+
+        <div className={styles.toggleRow}>
+          <div className={styles.toggleLeft}>
+            <span className={styles.toggleIcon}>📄</span>
+            <div>
+              <p className={styles.toggleLabel}>Cover Letter</p>
+              <p className={styles.toggleDesc}>Included cover letter?</p>
+            </div>
+          </div>
+          <button
+            className={`${styles.toggle} ${extras.coverLetter ? styles.on : ""}`}
+            onClick={() => toggle("coverLetter")}
+          >
+            <span className={styles.thumb} />
+          </button>
+        </div>
       </div>
 
-      {/* Cover Letter */}
-      <div className={styles.row}>
-        <span>Cover Letter</span>
-        <button onClick={() => toggleField("coverLetter")}>
-          {extras.coverLetter ? "Used" : "Not Used"}
-        </button>
-      </div>
-
-      {/* Skill Gap */}
       <div className={styles.skillSection}>
-        <p className={styles.label}>Skill Gap</p>
+        <p className={styles.skillTitle}>Skill Gaps</p>
+        <p className={styles.skillSub}>Skills you'd need to strengthen</p>
 
         <div className={styles.skillInput}>
           <input
             type="text"
-            placeholder="Add skill"
+            placeholder="e.g. GraphQL, Kubernetes…"
             value={skillInput}
             onChange={(e) => setSkillInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addSkill()}
+            className={styles.input}
           />
-          <button onClick={addSkill}>Add</button>
+          <button className={styles.addBtn} onClick={addSkill} disabled={!skillInput.trim()}>
+            Add
+          </button>
         </div>
 
         <div className={styles.skills}>
-          {extras.skillGap.map((skill, index) => (
-            <div key={index} className={styles.skill}>
+          {extras.skillGap.length === 0 && (
+            <span className={styles.empty}>No skill gaps noted</span>
+          )}
+          {extras.skillGap.map((skill) => (
+            <span key={skill} className={styles.skill}>
               {skill}
-              <span onClick={() => removeSkill(skill)}>✕</span>
-            </div>
+              <button onClick={() => removeSkill(skill)} className={styles.removeSkill}>✕</button>
+            </span>
           ))}
         </div>
       </div>

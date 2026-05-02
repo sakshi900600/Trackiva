@@ -1,130 +1,226 @@
 .card {
-  backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 16px;
-  padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
 }
 
-/* Header */
 .header {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
 .title {
-  font-size: 18px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 2px;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .dropdown {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-light);
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-sm);
   padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  outline: none;
-  font-size: 14px;
   cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232563eb' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 26px;
 }
 
 /* Pipeline */
-.pipelineContainer {
-  width: 100%;
+.pipeline { position: relative; padding: 8px 0 4px; }
+
+.trackWrapper {
+  position: absolute;
+  top: 27px;
+  left: calc(12.5% - 0px);
+  right: calc(12.5% - 0px);
+  height: 3px;
+  z-index: 0;
 }
 
-/* Track */
-.progressTrack {
+.track {
   width: 100%;
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 10px;
-  position: relative;
-  margin-bottom: 20px;
-}
-
-/* Fill */
-.progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #6366f1, #8b5cf6);
-  border-radius: 10px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.trackFill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1 0%, #2563eb 60%, #10b981 100%);
+  border-radius: 999px;
   transition: width 0.4s ease;
 }
 
-/* Stages */
 .stages {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  z-index: 1;
 }
 
-.stageItem {
+.stage {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  flex: 1;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: transform 0.15s;
 }
+.stage:hover { transform: translateY(-2px); }
 
-/* Circle */
-.circle {
-  width: 22px;
-  height: 22px;
+.node {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 2px solid #d1d5db;
+  background: var(--surface-2);
+  border: 2.5px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  transition: all 0.3s ease;
+  position: relative;
+  transition: all 0.2s;
 }
 
-/* Active stage */
-.active {
-  border-color: #6366f1;
-  background: #6366f1;
+.completed .node {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
 }
 
-/* Inner dot */
-.dot {
-  width: 8px;
-  height: 8px;
-  background: #fff;
-  border-radius: 50%;
+.current .node {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 5px rgba(37,99,235,0.18);
 }
 
-/* Label */
-.label {
+.checkmark {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stageIcon {
+  color: var(--text-muted);
   font-size: 12px;
-  color: #6b7280;
+}
+
+.pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(37,99,235,0.3);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0; transform: scale(1.35); }
+}
+
+.stageLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+
+.completed .stageLabel,
+.current .stageLabel {
+  color: var(--text-primary);
+}
+
+/* Rejected */
+.rejectedBanner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--danger-light);
+  border: 1px solid #fca5a5;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+
+.rejectedIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.rejectedTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #991b1b;
+  margin: 0 0 2px;
+}
+
+.rejectedSub {
+  font-size: 12px;
+  color: #b91c1c;
+  margin: 0;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--text-muted);
   text-align: center;
+  margin: 14px 0 0;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .label {
-    font-size: 10px;
-  }
-
-  .circle {
-    width: 18px;
-    height: 18px;
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-  }
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .card { padding: 16px; }
+  .header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .dropdown { width: 100%; }
+  .node { width: 28px; height: 28px; }
+  .checkmark { font-size: 12px; }
+  .stageLabel { font-size: 10px; }
+  .trackWrapper { top: 20px; }
+  .hint { font-size: 10px; margin-top: 10px; }
+  .rejectedBanner { padding: 12px 14px; gap: 10px; }
+  .rejectedIcon { width: 30px; height: 30px; font-size: 12px; }
+  .rejectedTitle { font-size: 13px; }
+  .rejectedSub { font-size: 11px; }
 }
 
-@media (max-width: 480px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .stages {
-    gap: 5px;
-  }
+@media (max-width: 380px) {
+  .card { padding: 12px; }
+  .title { font-size: 13px; }
+  .node { width: 24px; height: 24px; }
+  .stageLabel { font-size: 9px; }
+  .stages { gap: 0; }
 }
