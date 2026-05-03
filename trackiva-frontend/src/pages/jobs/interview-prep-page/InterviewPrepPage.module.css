@@ -12,6 +12,7 @@
   background: none;
   color: #4f46e5;
   cursor: pointer;
+  font-size: 14px;
 }
 
 /* Wrapper */
@@ -26,25 +27,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px; /* spacing from list */
+  margin-bottom: 28px;
+  gap: 12px;
 }
 
 .title {
-  font-size: 32px; /* bigger */
+  font-size: 32px;
   font-weight: 800;
 }
 
+/* Add Button */
 .addBtn {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 18px; /* bigger button */
+  padding: 12px 18px;
   border-radius: 12px;
   border: none;
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: white;
   font-weight: 500;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 /* List */
@@ -61,7 +65,7 @@
   transition: 0.2s;
 }
 
-/* Active open card */
+/* Active */
 .activeCard {
   border: 1px solid #4f46e5;
   background: #eef2ff;
@@ -73,6 +77,7 @@
   justify-content: space-between;
   padding: 16px;
   cursor: pointer;
+  gap: 12px;
 }
 
 .row:hover {
@@ -84,44 +89,32 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap; /* 🔥 important for small screens */
 }
 
 .question {
   font-weight: 600;
+  word-break: break-word;
 }
 
-/* Tag beside question */
+/* Tag */
 .tag {
   font-size: 11px;
-  padding: 2px 8px;
+  padding: 3px 8px;
   border-radius: 999px;
 }
 
 /* Tag colors */
-.hr {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-.behavioral {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.technical {
-  background: #dcfce7;
-  color: #15803d;
-}
-
-.other {
-  background: #e5e7eb;
-  color: #374151;
-}
+.hr { background: #fee2e2; color: #b91c1c; }
+.behavioral { background: #dbeafe; color: #1d4ed8; }
+.technical { background: #dcfce7; color: #15803d; }
+.other { background: #e5e7eb; color: #374151; }
 
 /* Actions */
 .actions {
   display: flex;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .actions button {
@@ -129,6 +122,12 @@
   background: none;
   cursor: pointer;
   color: #4f46e5;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.actions button:hover {
+  background: #eef2ff;
 }
 
 .delete {
@@ -142,6 +141,7 @@
   background: white;
   font-size: 14px;
   color: #444;
+  line-height: 1.6;
 }
 
 /* Placeholder */
@@ -168,6 +168,12 @@
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.modalForm textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
 .saveBtn {
@@ -179,14 +185,73 @@
   cursor: pointer;
 }
 
+/* ========================= */
+/* 🔥 RESPONSIVE BREAKPOINTS */
+/* ========================= */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .title {
+    font-size: 26px;
+  }
+
+  .wrapper {
+    padding: 20px;
+  }
+}
+
 /* Mobile */
 @media (max-width: 640px) {
+  .container {
+    padding: 12px;
+  }
+
+  .wrapper {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .addBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .row {
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-start;
   }
 
   .actions {
+    width: 100%;
     justify-content: flex-end;
+  }
+
+  .answer {
+    font-size: 13px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 400px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .addBtn span {
+    display: none; /* only icon */
+  }
+
+  .addBtn {
+    padding: 10px;
   }
 }

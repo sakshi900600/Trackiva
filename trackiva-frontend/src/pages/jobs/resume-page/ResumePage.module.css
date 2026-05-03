@@ -12,6 +12,7 @@
   border: none;
   color: #4f46e5;
   cursor: pointer;
+  font-size: 14px;
 }
 
 /* Wrapper */
@@ -26,12 +27,29 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
+  gap: 12px;
 }
 
 .title {
   font-size: 26px;
   font-weight: 700;
+}
+
+/* Header actions */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.refreshBtn {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #eef2ff;
+  color: #4f46e5;
+  cursor: pointer;
 }
 
 .uploadBtn {
@@ -46,12 +64,18 @@
   cursor: pointer;
 }
 
+/* 🔥 MAIN GRID */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 20px;
+}
+
 /* LIST */
 .list {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #eee;
-  gap: 9px;
+  gap: 10px;
 }
 
 /* ROW */
@@ -59,44 +83,53 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 10px;
-  border-bottom: 1px solid #eee;
+  padding: 14px;
+  border-radius: 10px;
   cursor: pointer;
+  background: #f9fafb;
   transition: 0.2s;
-  background-color: #8e9bfb3c;
 }
 
 .row:hover {
-  background: #f9fafb;
+  background: #f3f4f6;
 }
 
 .activeRow {
-  background: #8ba2eb;
+  background: #eef2ff;
+  border: 1px solid #4f46e5;
 }
 
 /* LEFT */
 .left {
   flex: 1;
+  min-width: 0;
 }
 
 .name {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
+  word-break: break-word;
 }
 
 /* ACTIONS */
 .actions {
   display: flex;
-  align-items: center;
-  gap: 14px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .actions button,
 .actions a {
-  background: none;
   border: none;
+  background: none;
   cursor: pointer;
   color: #4f46e5;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.actions button:hover {
+  background: #eef2ff;
 }
 
 .delete {
@@ -105,7 +138,7 @@
 
 /* INPUT */
 .input {
-  width: 250px;
+  width: 100%;
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -113,14 +146,14 @@
 
 /* PREVIEW */
 .previewSection {
-  margin-top: 20px;
+  width: 100%;
 }
 
 .previewFrame {
   width: 100%;
-  height: 700px; /* 🔥 increased size */
-  border: 1px solid #e5e7eb;
+  height: 75vh;
   border-radius: 10px;
+  border: 1px solid #e5e7eb;
 }
 
 /* PLACEHOLDER */
@@ -132,51 +165,54 @@
   background: #f3f4f6;
   border-radius: 10px;
   color: #6b7280;
-  font-size: 14px;
   text-align: center;
 }
 
-/* RIGHT SIDE BUTTON GROUP */
-.headerActions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* ================= */
+/* RESPONSIVE */
+/* ================= */
+
+@media (max-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .previewFrame {
+    height: 500px;
+  }
 }
 
-/* REFRESH BUTTON */
-.refreshBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background: #eef2ff;
-  color: #4f46e5;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.refreshBtn:hover {
-  background: #e0e7ff;
-}
-
-
-
-/* 📱 MOBILE */
 @media (max-width: 640px) {
+  .container {
+    padding: 12px;
+  }
+
+  .wrapper {
+    padding: 16px;
+  }
+
+  .topSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerActions {
+    width: 100%;
+  }
+
+  .uploadBtn {
+    flex: 1;
+    justify-content: center;
+  }
+
   .row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
   }
 
   .actions {
     width: 100%;
     justify-content: flex-end;
-  }
-
-  .previewFrame {
-    height: 500px;
   }
 }

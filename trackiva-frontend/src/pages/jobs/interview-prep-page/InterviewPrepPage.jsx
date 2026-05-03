@@ -128,12 +128,13 @@ const InterviewPrepPage = () => {
 
       <div className={styles.wrapper}>
         {/* Header */}
+        {/* Header */}
         <div className={styles.header}>
           <h1 className={styles.title}>Interview Preparation</h1>
 
           <button className={styles.addBtn} onClick={handleAdd}>
-            <Plus size={20} />
-            Add Question
+            <Plus size={18} />
+            <span>Add Question</span>
           </button>
         </div>
 

@@ -85,27 +85,24 @@ const ResumePage = () => {
 
       <div className={styles.wrapper}>
         {/* Header */}
-        <div className={styles.topSection}>
-          <h1 className={styles.title}>My Resumes</h1>
 
-          {/* RIGHT SIDE BUTTONS */}
-          <div className={styles.headerActions}>
-            <button
-              className={styles.refreshBtn}
-              onClick={fetchResumes}
-            >
-              <RefreshCcw size={18} />
-            </button>
+<div className={styles.topSection}>
+  <h1 className={styles.title}>My Resumes</h1>
 
-            <button
-              className={styles.uploadBtn}
-              onClick={() => setOpenUpload(true)}
-            >
-              <Upload size={18} />
-              Upload Resume
-            </button>
-          </div>
-        </div>
+  <div className={styles.headerActions}>
+    <button className={styles.refreshBtn} onClick={fetchResumes}>
+      <RefreshCcw size={18} />
+    </button>
+
+    <button
+      className={styles.uploadBtn}
+      onClick={() => setOpenUpload(true)}
+    >
+      <Upload size={18} />
+      <span className={styles.btnText}>Upload</span>
+    </button>
+  </div>
+</div>
 
         {/* Upload Modal */}
         <Modal isOpen={openUpload} onClose={() => setOpenUpload(false)}>

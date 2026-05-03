@@ -20,6 +20,7 @@ import Extras from "./components/extras/Extras";
 import LinksCard from "./components/links/LinksCard";
 import TagsCard from "./components/tags/TagsCard";
 import StatusHistory from "./components/status-history/StatusHistory";
+import QuickActions from "./components/quick-actions/QuickActions";
 
 const statusColor = {
   applied: "#6366f1",
@@ -157,6 +158,7 @@ const JobDetailPage = () => {
         </div>
 
         <div className={styles.right}>
+          <QuickActions />
           <Confidence
             value={job.confidenceScore ?? 0}
             jobId={id}

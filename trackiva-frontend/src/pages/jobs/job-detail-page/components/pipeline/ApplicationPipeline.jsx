@@ -44,18 +44,6 @@ const ApplicationPipeline = ({ status, onStatusChange }) => {
           <h3 className={styles.title}>Application Pipeline</h3>
           <p className={styles.subtitle}>Track your progress through stages</p>
         </div>
-        <select
-          className={styles.dropdown}
-          value={normalizedStatus}
-          onChange={(e) => onStatusChange(e.target.value)}
-        >
-          {PIPELINE_STAGES.map((stage) => (
-            <option key={stage} value={stage}>
-              {STAGE_LABELS[stage]}
-            </option>
-          ))}
-          <option value="rejected">Rejected</option>
-        </select>
       </div>
 
       {isRejected ? (
