@@ -61,7 +61,7 @@ function App() {
             <Route path="/reports" element={<ReportPage />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/platforms/:platformName" element={<PlatformDetail />} />
-            <Route path="/jobs/:jobId" element={<JobDetailPage />} />
+            <Route path="/jobs/:id" element={<JobDetailPage />} />
             <Route path="/jobs/resumes" element={<ResumePage />} />
             <Route path="/jobs/interview-prep" element={<InterviewPrepPage />} />
             <Route path="/jobs/cover-letters" element={<CoverLetterPage />} />

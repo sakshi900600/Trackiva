@@ -1,6 +1,34 @@
 import React from "react";
 import styles from "./StatusHistory.module.css";
-import { getStatusColor, getStatusBg } from "../../utils/pipelineUtils";
+
+const STATUS_COLOR = {
+  applied: "#6366f1",
+  screening: "#f59e0b",
+  interview: "#3b82f6",
+  offer: "#10b981",
+  rejected: "#ef4444",
+};
+
+const STATUS_BG = {
+  applied: "#eef2ff",
+  screening: "#fef3c7",
+  interview: "#eff6ff",
+  offer: "#ecfdf5",
+  rejected: "#fef2f2",
+};
+
+const formatDate = (dateStr) => {
+  if (!dateStr) return "—";
+  try {
+    return new Date(dateStr).toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  } catch {
+    return dateStr;
+  }
+};
 
 const StatusHistory = ({ history }) => {
   if (!history || history.length === 0) return null;
@@ -14,7 +42,7 @@ const StatusHistory = ({ history }) => {
             <div className={styles.left}>
               <span
                 className={styles.dot}
-                style={{ background: getStatusColor(entry.status) }}
+                style={{ background: STATUS_COLOR[entry.status] || "#64748b" }}
               />
               {i < history.length - 1 && <span className={styles.line} />}
             </div>
@@ -22,13 +50,13 @@ const StatusHistory = ({ history }) => {
               <span
                 className={styles.status}
                 style={{
-                  color: getStatusColor(entry.status),
-                  background: getStatusBg(entry.status),
+                  color: STATUS_COLOR[entry.status] || "#64748b",
+                  background: STATUS_BG[entry.status] || "#f1f5f9",
                 }}
               >
                 {entry.status}
               </span>
-              <span className={styles.date}>{entry.date}</span>
+              <span className={styles.date}>{formatDate(entry.date)}</span>
             </div>
           </div>
         ))}

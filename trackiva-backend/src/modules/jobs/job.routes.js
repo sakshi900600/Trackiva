@@ -5,7 +5,6 @@ import {
   getJobById,
   updateJob,
   deleteJob,
-  createManyJobs,
 } from "./job.controller.js";
 import { protect } from "../../middleware/auth.middleware.js";
 
@@ -21,10 +20,5 @@ router.route("/:id")
   .get(getJobById)
   .put(updateJob)
   .delete(deleteJob);
-
-
-// testing;
-
-router.post("/bulk", createManyJobs);
 
 export default router;

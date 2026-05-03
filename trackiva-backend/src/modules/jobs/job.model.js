@@ -25,19 +25,19 @@ const jobSchema = new mongoose.Schema(
 
     company: {
       type: String,
-      required: [true, "Company is required"],
+      required: true,
       trim: true,
     },
 
     role: {
       type: String,
-      required: [true, "Role is required"],
+      required: true,
       trim: true,
     },
 
     platform: {
       type: String,
-      required: [true, "Platform is required"],
+      required: true,
       trim: true,
     },
 
@@ -46,7 +46,6 @@ const jobSchema = new mongoose.Schema(
       enum: ["applied", "screening", "interview", "offer", "rejected"],
       default: "applied",
       lowercase: true,
-      trim: true,
     },
 
     confidenceScore: {
@@ -61,31 +60,38 @@ const jobSchema = new mongoose.Schema(
       default: Date.now,
     },
 
-    statusHistory: [statusHistorySchema],
-
-    resumeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Resume",
+    statusHistory: {
+      type: [statusHistorySchema],
+      default: [],
     },
 
-    notes: { type: String, trim: true },
+    notes: {
+      type: String,
+      default: "",
+    },
 
     links: {
-      jobUrl: String,
-      applicationUrl: String,
-      companySite: String,
-      referral: String,
-      recruiterProfile: String,
+      jobUrl: { type: String, default: "" },
+      applicationUrl: { type: String, default: "" },
+      companySite: { type: String, default: "" },
+      referral: { type: String, default: "" },
+      recruiterProfile: { type: String, default: "" },
     },
 
-    location: { type: String, trim: true },
+    location: {
+      type: String,
+      default: "",
+    },
 
     salary: {
-      expected: Number,
-      offered: Number,
+      expected: { type: Number, default: 0 },
+      offered: { type: Number, default: 0 },
     },
 
-    tags: [{ type: String, trim: true }],
+    tags: {
+      type: [String],
+      default: [],
+    },
   },
   { timestamps: true }
 );

@@ -24,18 +24,18 @@
 .primaryBtn {
   border: none;
   color: white;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
 }
 
 .primaryBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 8px 20px rgba(156, 121, 239, 0.721);
 }
 
 /* Secondary Button (Dotted Border) */
 .secondaryBtn {
   background: transparent;
-  border: 2px dashed #c7d2fe;
+  border: 2px dashed #d2c7fe;
   color: #4f46e5;
 }
 

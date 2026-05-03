@@ -5,7 +5,6 @@ export const createJob = async (req, res, next) => {
   try {
     const { role, company, platform } = req.body;
 
-    // 🔥 Manual validation
     if (!role || !company || !platform) {
       return res.status(400).json({
         success: false,
@@ -21,6 +20,7 @@ export const createJob = async (req, res, next) => {
       data: job,
     });
   } catch (err) {
+    console.error("CREATE JOB ERROR:", err);
     next(err);
   }
 };
@@ -37,6 +37,7 @@ export const getJobs = async (req, res, next) => {
       meta: result.meta,
     });
   } catch (err) {
+    console.error("GET JOBS ERROR:", err);
     next(err);
   }
 };
@@ -54,6 +55,7 @@ export const getJobById = async (req, res, next) => {
       data: job,
     });
   } catch (err) {
+    console.error("GET JOB ERROR:", err);
     next(err);
   }
 };
@@ -73,6 +75,7 @@ export const updateJob = async (req, res, next) => {
       data: job,
     });
   } catch (err) {
+    console.error("UPDATE JOB ERROR:", err);
     next(err);
   }
 };
@@ -87,36 +90,7 @@ export const deleteJob = async (req, res, next) => {
       message: "Job deleted",
     });
   } catch (err) {
-    next(err);
-  }
-};
-
-
-
-
-// testing:
-// job.controller.js
-
-export const createManyJobs = async (req, res, next) => {
-  try {
-    const jobs = req.body;
-
-    if (!Array.isArray(jobs) || jobs.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: "Send an array of jobs",
-      });
-    }
-
-    const result = await jobService.createManyJobs(jobs, req.user._id);
-
-    res.status(201).json({
-      success: true,
-      message: "Jobs created",
-      count: result.length,
-      data: result,
-    });
-  } catch (err) {
+    console.error("DELETE JOB ERROR:", err);
     next(err);
   }
 };

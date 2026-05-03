@@ -1,5 +1,5 @@
 .card {
-  border: 1px solid #d4defc; 
+  border: 1px solid #e9d4fc; 
   border-radius: 16px;
   padding: 22px;
 
@@ -45,7 +45,7 @@
   color: white;
 
   font-size: 20px;
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 10px rgba(133, 37, 235, 0.3);
 }
 
 /* TEXT */
@@ -53,6 +53,7 @@
   font-size: 18px;
   font-weight: 600;
   color: #111827;
+  text-transform: capitalize;
 }
 
 .apps {

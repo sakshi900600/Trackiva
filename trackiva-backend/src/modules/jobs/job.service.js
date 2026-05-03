@@ -20,7 +20,7 @@ export const createJob = async (data, userId) => {
 
 // GET JOBS
 export const getJobs = async (query, userId) => {
-  const {
+  let {
     status,
     platform,
     search,
@@ -30,15 +30,18 @@ export const getJobs = async (query, userId) => {
     limit = 10,
   } = query;
 
+  // 🔥 FIX: convert to numbers
+  page = Number(page);
+  limit = Number(limit);
+
   const filter = { userId };
 
   if (status) {
-    const statusArray = status.split(",").map(s => s.toLowerCase());
-    filter.status = { $in: statusArray };
+    filter.status = { $in: status.split(",") };
   }
 
   if (platform) {
-    filter.platform = { $regex: `^${platform}$`, $options: "i" };
+    filter.platform = { $regex: platform, $options: "i" };
   }
 
   if (search) {
@@ -48,35 +51,19 @@ export const getJobs = async (query, userId) => {
     ];
   }
 
-  const sortOptions = {};
-  const allowedSortFields = [
-    "role",
-    "status",
-    "platform",
-    "createdAt",
-    "appliedDate",
-  ];
-
-  sortOptions[
-    allowedSortFields.includes(sortBy) ? sortBy : "createdAt"
-  ] = order === "asc" ? 1 : -1;
-
   const skip = (page - 1) * limit;
 
-  const [jobs, total] = await Promise.all([
-    Job.find(filter)
-      .sort(sortOptions)
-      .skip(skip)
-      .limit(Number(limit))
-      .populate("resumeId", "name"),
+  const jobs = await Job.find(filter)
+    .sort({ [sortBy]: order === "asc" ? 1 : -1 })
+    .skip(skip)
+    .limit(limit);
 
-    Job.countDocuments(filter),
-  ]);
+  const total = await Job.countDocuments(filter);
 
   return {
     jobs,
     meta: {
-      page: Number(page),
+      page,
       total,
       pages: Math.ceil(total / limit),
     },
@@ -85,16 +72,9 @@ export const getJobs = async (query, userId) => {
 
 // GET SINGLE JOB
 export const getJobById = async (id, userId) => {
-  const job = await Job.findOne({ _id: id, userId }).populate(
-    "resumeId",
-    "name"
-  );
+  const job = await Job.findOne({ _id: id, userId });
 
-  if (!job) {
-    const error = new Error("Job not found");
-    error.statusCode = 404;
-    throw error;
-  }
+  if (!job) throw new Error("Job not found");
 
   return job;
 };
@@ -103,15 +83,7 @@ export const getJobById = async (id, userId) => {
 export const updateJob = async (id, data, userId) => {
   const job = await Job.findOne({ _id: id, userId });
 
-  if (!job) {
-    const error = new Error("Job not found or unauthorized");
-    error.statusCode = 404;
-    throw error;
-  }
-
-  if (data.status) {
-    data.status = data.status.toLowerCase();
-  }
+  if (!job) throw new Error("Job not found");
 
   if (data.status && data.status !== job.status) {
     job.statusHistory.push({
@@ -131,35 +103,5 @@ export const updateJob = async (id, data, userId) => {
 export const deleteJob = async (id, userId) => {
   const job = await Job.findOneAndDelete({ _id: id, userId });
 
-  if (!job) {
-    const error = new Error("Job not found or unauthorized");
-    error.statusCode = 404;
-    throw error;
-  }
-};
-
-
-
-// testing:
-// job.service.js
-
-export const createManyJobs = async (jobs, userId) => {
-  const formattedJobs = jobs.map((data) => {
-    const status = data.status?.toLowerCase() || "applied";
-
-    return {
-      ...data,
-      userId,
-      status,
-      appliedDate: data.appliedDate || new Date(),
-      statusHistory: [
-        {
-          status,
-          date: new Date(),
-        },
-      ],
-    };
-  });
-
-  return await Job.insertMany(formattedJobs);
+  if (!job) throw new Error("Job not found");
 };
