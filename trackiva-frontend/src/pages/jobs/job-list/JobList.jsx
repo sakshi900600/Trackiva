@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import JobListView from "./job-list-view/JobListView";
 
-const JobList = () => {
+const JobList = ({ refreshKey }) => {
   const [view, setView] = useState("table");
   const [search, setSearch] = useState("");
 
@@ -11,6 +11,7 @@ const JobList = () => {
       setView={setView}
       search={search}
       setSearch={setSearch}
+      refreshKey={refreshKey}
     />
   );
 };

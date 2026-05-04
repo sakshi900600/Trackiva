@@ -38,10 +38,10 @@ const Modal = ({ isOpen, onClose, children }) => {
         className={styles.modal}
         onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
       >
-        {/* Close Button */}
+        {/* Close Button
         <button className={styles.closeBtn} onClick={onClose}>
           ✕
-        </button>
+        </button> */}
 
         {/* Content */}
         <div className={styles.content}>{children}</div>

@@ -1,123 +1,43 @@
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px 24px;
-  box-shadow: var(--shadow-sm);
-}
-
-.title {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 14px;
-}
-
-.fileBox {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-}
-
-.fileIcon {
-  width: 38px;
-  height: 38px;
-  background: #eff6ff;
-  color: #2563eb;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px 24px; box-shadow: var(--shadow-sm); }
+.header { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.iconBox { width: 30px; height: 30px; border-radius: 8px; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center; }
+.title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0; }
+.fileBox { display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; }
+.fileIcon { width: 38px; height: 38px; border-radius: 8px; background: #fef2f2; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .fileMeta { flex: 1; min-width: 0; }
-
-.fileName {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.fileDate {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.fileActions { display: flex; gap: 6px; flex-shrink: 0; }
-
-.viewBtn {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent);
-  background: var(--accent-light);
-  border: none;
-  border-radius: 6px;
-  padding: 5px 12px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
+.fileName { font-size: 13px; font-weight: 600; color: var(--text-primary); margin: 0 0 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fileDate { font-size: 11px; color: var(--text-muted); margin: 0; }
+.fileActions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
+.viewBtn { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-light); border-radius: 6px; padding: 5px 10px; text-decoration: none; }
 .viewBtn:hover { background: #dbeafe; }
-
-.replaceBtn {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 5px 12px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.replaceBtn:hover { background: var(--surface-2); }
-
-.uploadBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--accent);
-  background: var(--accent-light);
-  border: 2px dashed #bfdbfe;
-  border-radius: var(--radius);
-  padding: 14px;
-  cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
-}
-.uploadBtn:hover {
-  background: #dbeafe;
-  border-color: var(--accent);
-}
-
-/* ─── Responsive ─────────────────────────────────────────── */
-@media (max-width: 600px) {
-  .card { padding: 16px; }
-  .fileBox { gap: 8px; padding: 10px; flex-wrap: wrap; }
-  .fileActions { width: 100%; justify-content: flex-end; }
-  .fileName { font-size: 12px; }
-  .fileDate { font-size: 10px; }
-}
-
-@media (max-width: 400px) {
-  .card { padding: 12px; }
-  .fileIcon { width: 30px; height: 30px; border-radius: 6px; }
-  .viewBtn, .replaceBtn { font-size: 11px; padding: 4px 8px; }
-  .uploadBtn { font-size: 12px; padding: 12px; }
-}
+.replaceBtn { font-size: 12px; font-weight: 500; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+.removeBtn { width: 28px; height: 28px; border-radius: 6px; border: none; background: transparent; color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s, color 0.15s; }
+.removeBtn:hover { background: #fee2e2; color: #ef4444; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.uploadBtn { display: flex; align-items: center; justify-content: center; gap: 7px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: #fff; background: var(--accent); border: none; border-radius: var(--radius-sm); padding: 10px 14px; cursor: pointer; transition: background 0.15s; }
+.uploadBtn:hover { background: var(--accent-hover); }
+.selectBtn { display: flex; align-items: center; justify-content: center; gap: 7px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--accent); background: var(--accent-light); border: 1px solid #bfdbfe; border-radius: var(--radius-sm); padding: 10px 14px; cursor: pointer; transition: background 0.15s; }
+.selectBtn:hover { background: #dbeafe; }
+.panel { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.dropZone { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 24px 16px; background: var(--surface-2); cursor: pointer; transition: background 0.15s; }
+.dropZone:hover { background: var(--accent-light); }
+.fileInput { display: none; }
+.dropText { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin: 0; }
+.dropSub { font-size: 11px; color: var(--text-muted); margin: 0; }
+.panelLabel { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 12px 14px 8px; margin: 0; }
+.loadingText { font-size: 13px; color: var(--text-muted); padding: 16px; text-align: center; margin: 0; }
+.noResumes { text-align: center; padding: 16px; display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.noResumes p { font-size: 13px; color: var(--text-muted); margin: 0; }
+.savedList { display: flex; flex-direction: column; }
+.savedItem { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface-2); border: none; border-top: 1px solid var(--border); text-align: left; cursor: pointer; width: 100%; transition: background 0.15s; }
+.savedItem:hover { background: var(--accent-light); }
+.savedIcon { width: 32px; height: 32px; border-radius: 6px; background: #fef2f2; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.savedMeta { flex: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.savedName { font-size: 13px; font-weight: 600; color: var(--text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.savedDate { font-size: 11px; color: var(--text-muted); }
+.panelFooter { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-top: 1px solid var(--border); background: var(--surface); }
+.cancelPanelBtn { font-size: 12px; font-weight: 500; color: var(--text-secondary); background: transparent; border: none; cursor: pointer; }
+.cancelPanelBtn:hover { color: var(--text-primary); }
+.switchBtn { font-size: 12px; font-weight: 600; color: var(--accent); background: transparent; border: none; cursor: pointer; }
+.switchBtn:hover { text-decoration: underline; }
+@media (max-width: 600px) { .card { padding: 16px; } .actions { grid-template-columns: 1fr; } }

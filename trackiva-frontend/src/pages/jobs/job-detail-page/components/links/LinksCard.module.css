@@ -1,82 +1,33 @@
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
-}
-
-.title {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 14px;
-}
-
-.empty {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin: 0;
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  text-decoration: none;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
-  cursor: pointer;
-}
-.link:hover {
-  background: var(--accent-light);
-  border-color: #bfdbfe;
-  transform: translateX(2px);
-}
-
-.linkIcon { font-size: 14px; flex-shrink: 0; }
-
-.linkLabel {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  flex: 1;
-}
-
-.linkUrl {
-  font-size: 11px;
-  color: var(--text-muted);
-  max-width: 140px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.external {
-  color: var(--text-muted);
-  flex-shrink: 0;
-  transition: color 0.15s;
-}
-.link:hover .external { color: var(--accent); }
-
-/* ─── Responsive ─────────────────────────────────────────── */
-@media (max-width: 600px) {
-  .card { padding: 16px; }
-  .link { padding: 9px 10px; gap: 8px; }
-  .linkLabel { font-size: 12px; }
-  .linkUrl { font-size: 10px; max-width: 100px; }
-}
-
-@media (max-width: 400px) {
-  .linkUrl { display: none; }
-}
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.headerLeft { display: flex; align-items: center; gap: 8px; }
+.iconBox { width: 30px; height: 30px; border-radius: 8px; background: #dbeafe; color: #2563eb; display: flex; align-items: center; justify-content: center; }
+.title { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text-primary); margin: 0; }
+.count { font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-light); border-radius: 999px; padding: 2px 8px; }
+.addBtn { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-light); border: none; border-radius: 6px; padding: 5px 12px; cursor: pointer; transition: background 0.15s; }
+.addBtn:hover { background: #dbeafe; }
+.form, .editForm { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px; }
+.input { font-family: var(--font-body); font-size: 13px; color: var(--text-primary); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 12px; outline: none; transition: border-color 0.15s; width: 100%; box-sizing: border-box; }
+.input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.07); }
+.formActions { display: flex; gap: 8px; justify-content: flex-end; }
+.cancelFormBtn { font-size: 12px; font-weight: 500; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.saveFormBtn { font-size: 12px; font-weight: 600; color: #fff; background: var(--accent); border: none; border-radius: 6px; padding: 6px 14px; cursor: pointer; transition: background 0.15s; }
+.saveFormBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+.saveFormBtn:hover:not(:disabled) { background: var(--accent-hover); }
+.empty { font-size: 13px; color: var(--text-muted); margin: 0; }
+.list { display: flex; flex-direction: column; gap: 6px; }
+.linkRow { display: flex; align-items: center; gap: 6px; }
+.linkAnchor { flex: 1; display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; transition: background 0.15s, border-color 0.15s; min-width: 0; }
+.linkAnchor:hover { background: var(--accent-light); border-color: #bfdbfe; }
+.linkDot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.linkInfo { flex: 1; min-width: 0; }
+.linkLabel { display: block; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.linkUrl { display: block; font-size: 11px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.external { color: var(--text-muted); flex-shrink: 0; transition: color 0.15s; }
+.linkAnchor:hover .external { color: var(--accent); }
+.rowActions { display: flex; gap: 4px; flex-shrink: 0; }
+.editRowBtn { width: 28px; height: 28px; border-radius: 6px; background: var(--accent-light); color: var(--accent); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s; }
+.editRowBtn:hover { background: #dbeafe; }
+.deleteRowBtn { width: 28px; height: 28px; border-radius: 6px; background: transparent; color: var(--text-muted); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.15s, color 0.15s; }
+.deleteRowBtn:hover { background: #fee2e2; color: #ef4444; }
+@media (max-width: 600px) { .card { padding: 16px; } }

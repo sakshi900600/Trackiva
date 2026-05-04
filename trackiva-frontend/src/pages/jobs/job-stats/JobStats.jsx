@@ -2,21 +2,15 @@ import React, { useEffect, useState } from "react";
 import styles from "./JobStats.module.css";
 import StatCard from "../../../components/stat-card/StatCard";
 import { getAnalytics } from "../../../api/analytics";
+import { Briefcase, CalendarCheck, BadgeCheck, XCircle } from "lucide-react";
 
-// Icons
-import {
-  Briefcase,
-  CalendarCheck,
-  BadgeCheck,
-  XCircle,
-} from "lucide-react";
-
-const JobStats = () => {
+const JobStats = ({ refreshKey }) => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchStats = async () => {
+      setLoading(true);
       try {
         const res = await getAnalytics();
         setStats(res.data.jobStats);
@@ -28,9 +22,8 @@ const JobStats = () => {
     };
 
     fetchStats();
-  }, []);
+  }, [refreshKey]); // re-runs whenever parent increments refreshKey
 
-  // 🔥 Loading state
   if (loading) {
     return (
       <div className={styles.container}>
@@ -39,18 +32,8 @@ const JobStats = () => {
     );
   }
 
-  // 🔥 Empty state
-  if (!stats || stats.totalApplications.value === 0) {
-    return (
-      <div className={styles.container}>
-        <p className={styles.placeholder}>
-          No applications yet. Start adding jobs 🚀
-        </p>
-      </div>
-    );
-  }
+  if (!stats) return null;
 
-  // 🔥 Map backend → UI
   const statsData = [
     {
       title: "Total Applications",

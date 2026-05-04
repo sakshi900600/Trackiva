@@ -34,7 +34,7 @@ const TableView = ({
             <tr>
               <td colSpan={columns.length}>
                 <div className={styles.stateBox}>
-                  <span>No data available</span>
+                  {/* <span>No data available</span> */}
                 </div>
               </td>
             </tr>
