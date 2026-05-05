@@ -10,16 +10,7 @@ const ApplicationFunnel = ({ data, loading }) => {
   // 1. Check if data exists
   const hasData = data && data.applied > 0;
 
-  if (!hasData) {
-    return (
-      <div className={styles.card}>
-        <div className={styles.emptyState}>
-           <Database size={28} />
-           <h3>No Funnel Data</h3>
-        </div>
-      </div>
-    );
-  }
+ 
 
   // 2. Format the backend data for the rows
   // We calculate width relative to the 'applied' count (the largest part)

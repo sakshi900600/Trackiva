@@ -14,11 +14,10 @@ import CoverLetterPage from "./pages/jobs/cover-letter-page/CoverLetterPage";
 import Auth from "./pages/auth/Auth";
 import HomePage from "./pages/home-page/HomePage";
 import PlatformDetail from "./pages/platforms/platform-detail/PlatformDetail";
+import ResetPassword from "./pages/auth/ResetPassword";
 
-// 🔐 Simple auth check (replace later with real auth)
-const isAuthenticated = () => {
-  return !!localStorage.getItem("token");
-};
+// Simple auth check
+const isAuthenticated = () => !!localStorage.getItem("token");
 
 function App() {
   return (
@@ -28,31 +27,22 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          {/* 🟢 Landing Page */}
+          {/* Landing Page */}
           <Route
             path="/"
-            element={
-              isAuthenticated() ? (
-                <Navigate to="/dashboard" />
-              ) : (
-                <HomePage />
-              )
-            }
+            element={isAuthenticated() ? <Navigate to="/dashboard" /> : <HomePage />}
           />
 
-          {/* 🔓 Auth */}
+          {/* Auth */}
           <Route path="/login" element={<Auth />} />
-          <Route path="/signup" element={<Auth />} />
 
-          {/* 🔐 Protected Routes */}
+          {/* ✅ Reset password must be PUBLIC — outside protected routes
+              so users coming from email link don't get redirected to login */}
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+          {/* Protected Routes */}
           <Route
-            element={
-              isAuthenticated() ? (
-                <MainLayout />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
+            element={isAuthenticated() ? <MainLayout /> : <Navigate to="/" />}
           >
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/jobs" element={<Jobs />} />

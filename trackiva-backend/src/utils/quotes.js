@@ -684,8 +684,8 @@ export const quotes = [
   },
   {
     day: 126,
-    text: "The most wasted of days is one without laughter.",
-    author: "E.E. Cummings",
+    text: "You must do the things you think you cannot do.",
+    author: "Eleanor Roosevelt",
   },
   {
     day: 127,
@@ -701,8 +701,8 @@ export const quotes = [
   },
   {
     day: 129,
-    text: "You must do the things you think you cannot do.",
-    author: "Eleanor Roosevelt",
+    text: "The most wasted of days is one without laughter.",
+    author: "E.E. Cummings",
   },
   {
     day: 130,

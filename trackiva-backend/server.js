@@ -1,9 +1,8 @@
-import dotenv from "dotenv";
+import "./src/config/env.js"; // ← must be first
 import app from "./src/app.js";
 import connectDB from "./src/config/db.js";
 
-// Load env vars
-dotenv.config();
+// dotenv.config() line removed from here
 
 process.on("uncaughtException", (err) => {
   console.error("💥 Uncaught Exception:", err.message);
@@ -13,7 +12,6 @@ process.on("unhandledRejection", (err) => {
   console.error("💥 Unhandled Rejection:", err.message);
 });
 
-// Connect DB
 connectDB();
 
 const PORT = process.env.PORT || 5000;

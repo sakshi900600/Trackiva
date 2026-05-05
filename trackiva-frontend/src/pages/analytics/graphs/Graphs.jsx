@@ -36,12 +36,12 @@ const Graphs = ({ data, loading }) => {
       </div>
 
       {/* Row 3 */}
-      <div className={styles.fullWidth}>
+      {/* <div className={styles.fullWidth}>
         <PlatformPerformanceBar
           data={data?.platforms}
           loading={loading}
         />
-      </div>
+      </div> */}
 
     </div>
   );
