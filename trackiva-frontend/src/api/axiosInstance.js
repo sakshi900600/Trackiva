@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -36,9 +36,6 @@ axiosInstance.interceptors.response.use(
       window.location.href = "/login";
     }
 
-    // ✅ CRITICAL: reject with the original axios error, NOT error.response.data
-    // friendlyError() in Auth.jsx reads err?.response?.data?.message
-    // If we strip the error down to just the data, that path breaks
     return Promise.reject(error);
   }
 );
