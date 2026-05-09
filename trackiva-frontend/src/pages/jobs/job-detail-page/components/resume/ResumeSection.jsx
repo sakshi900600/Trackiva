@@ -4,8 +4,9 @@ import { updateJob } from "../../../../../api/jobs";
 import { showSuccess, showError, showLoading, dismissToast } from "../../../../../utils/toast";
 import axiosInstance from "../../../../../api/axiosInstance";
 
-const ResumeSection = ({ resume, jobId, refetch }) => {
-  const hasResume = resume?.name;
+const ResumeSection = ({ resume, jobId, optimisticUpdate, refetch }) => {
+  // resume comes directly from job.resume — { name, url, uploadedAt }
+  const hasResume = !!resume?.name;
   const [mode, setMode] = useState(null); // null | "upload" | "select"
   const [savedResumes, setSavedResumes] = useState([]);
   const [loadingResumes, setLoadingResumes] = useState(false);
@@ -18,8 +19,10 @@ const ResumeSection = ({ resume, jobId, refetch }) => {
   const fetchResumes = async () => {
     setLoadingResumes(true);
     try {
-      const res = await axiosInstance.get("/resumes");
-      setSavedResumes(res.data?.data || []);
+      const res = await axiosInstance.get("/resume");
+      // Handle both array and paginated responses
+      const data = res.data?.data;
+      setSavedResumes(Array.isArray(data) ? data : data?.resumes || []);
     } catch {
       setSavedResumes([]);
     } finally { setLoadingResumes(false); }
@@ -28,35 +31,64 @@ const ResumeSection = ({ resume, jobId, refetch }) => {
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    const resumeData = {
+      name: file.name,
+      url: "",
+      uploadedAt: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    };
+
+    // Optimistic update
+    optimisticUpdate(() => ({ resume: resumeData }));
+    setMode(null);
     const toastId = showLoading("Attaching resume...");
     setSaving(true);
     try {
-      await updateJob(jobId, {
-        resume: { name: file.name, url: "", uploadedAt: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) },
-      });
+      await updateJob(jobId, { resume: resumeData });
       dismissToast(toastId); showSuccess("Resume attached");
-      setMode(null); refetch();
-    } catch { dismissToast(toastId); showError("Failed to attach resume"); }
-    finally { setSaving(false); }
+    } catch {
+      optimisticUpdate(() => ({ resume: resume })); // rollback
+      dismissToast(toastId); showError("Failed to attach resume");
+      refetch();
+    } finally { setSaving(false); }
   };
 
   const handleSelectSaved = async (r) => {
+    const resumeData = {
+      name: r.originalName || r.filename || r.name,
+      url: r.url || r.fileUrl || "",
+      uploadedAt: r.uploadedAt || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    };
+
+    // Optimistic update
+    optimisticUpdate(() => ({ resume: resumeData }));
+    setMode(null);
     const toastId = showLoading("Attaching resume...");
     setSaving(true);
     try {
-      await updateJob(jobId, { resume: { name: r.originalName || r.filename || r.name, url: r.url || r.fileUrl || "", uploadedAt: r.uploadedAt || "" } });
+      await updateJob(jobId, { resume: resumeData });
       dismissToast(toastId); showSuccess("Resume attached");
-      setMode(null); refetch();
-    } catch { dismissToast(toastId); showError("Failed to attach"); }
-    finally { setSaving(false); }
+    } catch {
+      optimisticUpdate(() => ({ resume: resume })); // rollback
+      dismissToast(toastId); showError("Failed to attach");
+      refetch();
+    } finally { setSaving(false); }
   };
 
   const handleRemove = async () => {
+    const prev = resume;
+    const empty = { name: "", url: "", uploadedAt: "" };
+
+    // Optimistic remove
+    optimisticUpdate(() => ({ resume: empty }));
     const toastId = showLoading("Removing...");
     try {
-      await updateJob(jobId, { resume: { name: "", url: "", uploadedAt: "" } });
-      dismissToast(toastId); showSuccess("Removed"); refetch();
-    } catch { dismissToast(toastId); showError("Failed"); }
+      await updateJob(jobId, { resume: empty });
+      dismissToast(toastId); showSuccess("Resume removed");
+    } catch {
+      optimisticUpdate(() => ({ resume: prev })); // rollback
+      dismissToast(toastId); showError("Failed to remove");
+      refetch();
+    }
   };
 
   return (
@@ -72,6 +104,7 @@ const ResumeSection = ({ resume, jobId, refetch }) => {
         <h3 className={styles.title}>Resume</h3>
       </div>
 
+      {/* ── Resume attached ── */}
       {hasResume && (
         <div className={styles.fileBox}>
           <div className={styles.fileIcon}>
@@ -85,9 +118,11 @@ const ResumeSection = ({ resume, jobId, refetch }) => {
             {resume.uploadedAt && <p className={styles.fileDate}>Attached {resume.uploadedAt}</p>}
           </div>
           <div className={styles.fileActions}>
-            {resume.url && <a href={resume.url} target="_blank" rel="noopener noreferrer" className={styles.viewBtn}>View</a>}
+            {resume.url && (
+              <a href={resume.url} target="_blank" rel="noopener noreferrer" className={styles.viewBtn}>View</a>
+            )}
             <button className={styles.replaceBtn} onClick={() => setMode(mode ? null : "select")}>Change</button>
-            <button className={styles.removeBtn} onClick={handleRemove} title="Remove">
+            <button className={styles.removeBtn} onClick={handleRemove} title="Remove" disabled={saving}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
               </svg>
@@ -96,6 +131,7 @@ const ResumeSection = ({ resume, jobId, refetch }) => {
         </div>
       )}
 
+      {/* ── No resume — choose action ── */}
       {!hasResume && mode === null && (
         <div className={styles.actions}>
           <button className={styles.uploadBtn} onClick={() => setMode("upload")}>
@@ -113,6 +149,7 @@ const ResumeSection = ({ resume, jobId, refetch }) => {
         </div>
       )}
 
+      {/* ── Upload panel ── */}
       {mode === "upload" && (
         <div className={styles.panel}>
           <label className={styles.dropZone}>
@@ -130,6 +167,7 @@ const ResumeSection = ({ resume, jobId, refetch }) => {
         </div>
       )}
 
+      {/* ── Select saved resume panel ── */}
       {mode === "select" && (
         <div className={styles.panel}>
           <p className={styles.panelLabel}>Your uploaded resumes</p>
@@ -137,7 +175,7 @@ const ResumeSection = ({ resume, jobId, refetch }) => {
             <p className={styles.loadingText}>Loading…</p>
           ) : savedResumes.length === 0 ? (
             <div className={styles.noResumes}>
-              <p>No resumes uploaded yet.</p>
+              <p>No resumes found in your library.</p>
               <button className={styles.switchBtn} onClick={() => setMode("upload")}>Upload one now →</button>
             </div>
           ) : (

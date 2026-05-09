@@ -3,7 +3,7 @@ import styles from "./JobFooter.module.css";
 import FooterCard from "../../../components/footer-card/FooterCard";
 
 // Icons
-import { Lightbulb, Target } from "lucide-react";
+import { Lightbulb, Target, FileText } from "lucide-react";
 
 const footerData = [
   {
@@ -21,6 +21,14 @@ const footerData = [
     subText: "Consistency beats luck.",
     icon: Target,
     color: "blue",
+  },
+  {
+    title: "Track Applications",
+    description:
+      "Keep all your <b>job applications</b> organized.<br/>Monitor status updates and <b>deadlines</b>.",
+    subText: "Stay on top of every opportunity.",
+    icon: FileText,
+    color: "green",
   },
 ];
 

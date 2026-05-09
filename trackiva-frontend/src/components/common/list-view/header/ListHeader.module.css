@@ -6,13 +6,20 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Top row: view toggle + add button */
+/* Top row: view toggle + right actions */
 .topRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+/* Right side of top row */
+.rightActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* View Toggle */
@@ -49,6 +56,30 @@
   background: #7C3AED;
   color: #fff;
   box-shadow: 0 3px 10px rgba(124, 58, 237, 0.28);
+}
+
+/* ✅ Refresh Button */
+.refreshBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(124, 58, 237, 0.15);
+  background: #f8f6ff;
+  color: #7C3AED;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s, transform 0.2s, box-shadow 0.2s;
+}
+
+.refreshBtn:hover {
+  background: rgba(124, 58, 237, 0.10);
+  box-shadow: 0 3px 10px rgba(124, 58, 237, 0.18);
+}
+
+.refreshBtn:active {
+  transform: rotate(10deg);
 }
 
 /* Add Button */

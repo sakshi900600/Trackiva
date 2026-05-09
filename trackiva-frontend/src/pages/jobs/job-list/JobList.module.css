@@ -58,11 +58,10 @@
 
 /* WHITE CARD WRAPPER */
 .containerCard {
+  width: 100%;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-
-  padding: 16px;
+  border-radius: 19px;
 }
 
 /* ROLE */

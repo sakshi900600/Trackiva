@@ -3,6 +3,8 @@ import styles from "./Reminders.module.css";
 import { addReminder, updateReminder, deleteReminder } from "../../../../../api/jobs";
 import { showSuccess, showError, showLoading, dismissToast } from "../../../../../utils/toast";
 
+const uid = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+
 const isOverdue = (date, time) => {
   if (!date) return false;
   const dt = time ? new Date(`${date}T${time}`) : new Date(date);
@@ -18,36 +20,66 @@ const formatDateTime = (date, time) => {
   } catch { return date; }
 };
 
-const Reminders = ({ reminders = [], jobId, refetch }) => {
+const Reminders = ({ reminders = [], jobId, optimisticUpdate, refetch }) => {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ title: "", note: "", date: "", time: "" });
   const [saving, setSaving] = useState(false);
 
   const handleAdd = async () => {
     if (!form.title.trim()) return;
-    const toastId = showLoading("Adding reminder...");
+    const tempId = uid();
+    const newReminder = { id: tempId, title: form.title.trim(), note: form.note.trim(), date: form.date, time: form.time, completed: false, emailSent: false };
+
+    // Optimistic add
+    optimisticUpdate(prev => ({ reminders: [...(prev.reminders || []), newReminder] }));
+    setForm({ title: "", note: "", date: "", time: "" }); setOpen(false);
     setSaving(true);
+    const toastId = showLoading("Adding reminder...");
     try {
-      await addReminder(jobId, { title: form.title.trim(), note: form.note.trim(), date: form.date, time: form.time });
+      const res = await addReminder(jobId, newReminder);
+      const realReminders = res.data?.data?.reminders;
+      if (realReminders) optimisticUpdate(() => ({ reminders: realReminders }));
       dismissToast(toastId); showSuccess("Reminder added");
-      setForm({ title: "", note: "", date: "", time: "" }); setOpen(false); refetch();
-    } catch { dismissToast(toastId); showError("Failed to add reminder"); }
-    finally { setSaving(false); }
+    } catch {
+      optimisticUpdate(prev => ({ reminders: (prev.reminders || []).filter(r => r.id !== tempId) }));
+      dismissToast(toastId); showError("Failed to add reminder");
+      refetch();
+    } finally { setSaving(false); }
   };
 
   const toggleComplete = async (reminder) => {
+    const newVal = !reminder.completed;
+
+    // Optimistic toggle
+    optimisticUpdate(prev => ({
+      reminders: (prev.reminders || []).map(r => r.id === reminder.id ? { ...r, completed: newVal } : r)
+    }));
     try {
-      await updateReminder(jobId, reminder.id, { completed: !reminder.completed });
+      await updateReminder(jobId, reminder.id, { completed: newVal });
+    } catch {
+      // Rollback
+      optimisticUpdate(prev => ({
+        reminders: (prev.reminders || []).map(r => r.id === reminder.id ? { ...r, completed: !newVal } : r)
+      }));
+      showError("Failed to update");
       refetch();
-    } catch { showError("Failed to update"); }
+    }
   };
 
   const handleDelete = async (reminderId) => {
+    const deleted = reminders.find(r => r.id === reminderId);
+
+    // Optimistic delete
+    optimisticUpdate(prev => ({ reminders: (prev.reminders || []).filter(r => r.id !== reminderId) }));
     const toastId = showLoading("Deleting...");
     try {
       await deleteReminder(jobId, reminderId);
-      dismissToast(toastId); showSuccess("Deleted"); refetch();
-    } catch { dismissToast(toastId); showError("Failed to delete"); }
+      dismissToast(toastId); showSuccess("Deleted");
+    } catch {
+      optimisticUpdate(prev => ({ reminders: [...(prev.reminders || []), deleted] }));
+      dismissToast(toastId); showError("Failed to delete");
+      refetch();
+    }
   };
 
   const pending = reminders.filter(r => !r.completed);

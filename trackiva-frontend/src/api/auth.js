@@ -8,3 +8,8 @@ export const resetPassword = (token, password) =>
   axiosInstance.post(`/auth/reset-password/${token}`, { password });
 
 export const getProfile = () => axiosInstance.get("/auth/profile");
+
+export const updateProfile = (formData) => 
+  axiosInstance.patch("/auth/profile", formData, {
+    headers: { "Content-Type": "multipart/form-data" }
+  });

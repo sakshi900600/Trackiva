@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styles from "./JobDetailPage.module.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useJob } from "../../../hooks/useJob";
@@ -31,8 +31,15 @@ const statusBg = {
 const JobDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { job, loading, error, refetch } = useJob(id);
+  const { job, setJob, loading, error, refetch } = useJob(id);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
+
+  // ── Optimistic update helper ───────────────────────────
+  // Updates local state immediately, then syncs with server in background.
+  // Only calls refetch() on error to restore correct state.
+  const optimisticUpdate = useCallback((updater) => {
+    setJob(prev => prev ? { ...prev, ...updater(prev) } : prev);
+  }, [setJob]);
 
   const handleDelete = async () => {
     const toastId = showLoading("Deleting job...");
@@ -41,22 +48,27 @@ const JobDetailPage = () => {
       dismissToast(toastId);
       showSuccess("Job deleted successfully");
       navigate("/jobs");
-    } catch (err) {
+    } catch {
       dismissToast(toastId);
       showError("Failed to delete job");
     }
   };
 
   const handleStatusChange = async (newStatus) => {
+    // Optimistically update status + statusHistory immediately
+    optimisticUpdate(prev => ({
+      status: newStatus,
+      statusHistory: [...(prev.statusHistory || []), { status: newStatus, date: new Date().toISOString() }],
+    }));
     const toastId = showLoading("Updating status...");
     try {
       await updateJob(id, { status: newStatus });
       dismissToast(toastId);
       showSuccess("Status updated");
-      refetch();
-    } catch (err) {
+    } catch {
       dismissToast(toastId);
       showError("Failed to update status");
+      refetch(); // restore on error
     }
   };
 
@@ -142,18 +154,18 @@ const JobDetailPage = () => {
       <div className={styles.grid}>
         <div className={styles.left}>
           <ApplicationPipeline status={job.status} onStatusChange={handleStatusChange} />
-          <JobInfo job={job} jobId={id} refetch={refetch} />
-          <Notes notes={job.notes || []} jobId={id} refetch={refetch} />
-          <Contacts contacts={job.contacts || []} jobId={id} refetch={refetch} />
-          <LinksCard links={job.links} jobId={id} refetch={refetch} />
-          <Confidence value={job.confidenceScore ?? 0} jobId={id} refetch={refetch} />
+          <JobInfo job={job} jobId={id} optimisticUpdate={optimisticUpdate} refetch={refetch} />
+          <Notes notes={job.notes || []} jobId={id} optimisticUpdate={optimisticUpdate} refetch={refetch} />
+          <Contacts contacts={job.contacts || []} jobId={id} optimisticUpdate={optimisticUpdate} refetch={refetch} />
+          <LinksCard links={job.links} jobId={id} optimisticUpdate={optimisticUpdate} refetch={refetch} />
+          <Confidence value={job.confidenceScore ?? 0} jobId={id} optimisticUpdate={optimisticUpdate} refetch={refetch} />
           <StatusHistory history={job.statusHistory || []} />
         </div>
         <div className={styles.right}>
           <QuickActions job={job} />
-          <ResumeSection resume={job.resume} jobId={id} refetch={refetch} />
-          <Reminders reminders={job.reminders || []} jobId={id} refetch={refetch} />
-          <TagsCard tags={job.tags || []} jobId={id} refetch={refetch} />
+          <ResumeSection resume={job.resume} jobId={id} optimisticUpdate={optimisticUpdate} refetch={refetch} />
+          <Reminders reminders={job.reminders || []} jobId={id} optimisticUpdate={optimisticUpdate} refetch={refetch} />
+          <TagsCard tags={job.tags || []} jobId={id} optimisticUpdate={optimisticUpdate} refetch={refetch} />
           <PlatformCard platform={job.platform} platformUrl={job.platformUrl} />
           <Extras extras={job.extras} jobId={id} refetch={refetch} />
         </div>

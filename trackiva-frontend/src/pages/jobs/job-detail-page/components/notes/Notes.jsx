@@ -3,12 +3,14 @@ import styles from "./Notes.module.css";
 import { addNote, updateNote, deleteNote } from "../../../../../api/jobs";
 import { showSuccess, showError, showLoading, dismissToast } from "../../../../../utils/toast";
 
+const uid = () => Math.random().toString(36).slice(2) + Date.now().toString(36);
+
 const formatDate = (d) => {
   if (!d) return "";
   return new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" });
 };
 
-const Notes = ({ notes = [], jobId, refetch }) => {
+const Notes = ({ notes = [], jobId, optimisticUpdate, refetch }) => {
   const [text, setText] = useState("");
   const [saving, setSaving] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -16,45 +18,73 @@ const Notes = ({ notes = [], jobId, refetch }) => {
 
   const handleAdd = async () => {
     if (!text.trim()) return;
-    const toastId = showLoading("Adding note...");
+    const tempId = uid();
+    const newNote = { id: tempId, text: text.trim(), createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+
+    // Optimistic: add immediately
+    optimisticUpdate(prev => ({ notes: [...(prev.notes || []), newNote] }));
+    setText("");
     setSaving(true);
+    const toastId = showLoading("Adding note...");
     try {
-      await addNote(jobId, text.trim());
+      const res = await addNote(jobId, newNote.text);
+      // Replace with real data from server
+      const realNotes = res.data?.data?.notes;
+      if (realNotes) optimisticUpdate(() => ({ notes: realNotes }));
       dismissToast(toastId);
       showSuccess("Note added");
-      setText("");
-      refetch();
     } catch {
+      // Rollback
+      optimisticUpdate(prev => ({ notes: (prev.notes || []).filter(n => n.id !== tempId) }));
       dismissToast(toastId);
       showError("Failed to add note");
+      refetch();
     } finally { setSaving(false); }
   };
 
   const handleUpdate = async (noteId) => {
     if (!editText.trim()) return;
+    const prev_text = notes.find(n => n.id === noteId)?.text;
+
+    // Optimistic update
+    optimisticUpdate(prev => ({
+      notes: (prev.notes || []).map(n => n.id === noteId ? { ...n, text: editText.trim(), updatedAt: new Date().toISOString() } : n)
+    }));
+    setEditingId(null);
     const toastId = showLoading("Updating note...");
     try {
-      await updateNote(jobId, noteId, editText.trim());
+      const res = await updateNote(jobId, noteId, editText.trim());
+      const realNotes = res.data?.data?.notes;
+      if (realNotes) optimisticUpdate(() => ({ notes: realNotes }));
       dismissToast(toastId);
       showSuccess("Note updated");
-      setEditingId(null);
-      refetch();
     } catch {
+      // Rollback
+      optimisticUpdate(prev => ({
+        notes: (prev.notes || []).map(n => n.id === noteId ? { ...n, text: prev_text } : n)
+      }));
       dismissToast(toastId);
       showError("Failed to update note");
+      refetch();
     }
   };
 
   const handleDelete = async (noteId) => {
+    const deletedNote = notes.find(n => n.id === noteId);
+
+    // Optimistic delete
+    optimisticUpdate(prev => ({ notes: (prev.notes || []).filter(n => n.id !== noteId) }));
     const toastId = showLoading("Deleting note...");
     try {
       await deleteNote(jobId, noteId);
       dismissToast(toastId);
       showSuccess("Note deleted");
-      refetch();
     } catch {
+      // Rollback
+      optimisticUpdate(prev => ({ notes: [...(prev.notes || []), deletedNote] }));
       dismissToast(toastId);
       showError("Failed to delete note");
+      refetch();
     }
   };
 

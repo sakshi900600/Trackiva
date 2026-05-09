@@ -1,48 +1,48 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getJobs } from "../api/jobs";
 
-export const useJobs = (params = {}) => {
-  const [data, setData] = useState([]);
-  const [meta, setMeta] = useState(null);
+/**
+ * useJobs — fetches the jobs list and exposes refetch().
+ * Pass this refetch down to the "Add Job" modal so it updates
+ * the list immediately after a job is created.
+ *
+ * Usage in Jobs.jsx:
+ *   const { jobs, loading, refetch } = useJobs(filters);
+ *   <AddJobModal onSuccess={refetch} />
+ *   <button onClick={refetch}>↻ Refresh</button>
+ */
+export const useJobs = (query = {}) => {
+  const [jobs, setJobs] = useState([]);
+  const [meta, setMeta] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { search = "", status = "", page = 1, limit = 10 } = params;
-
-  const fetchJobs = async () => {
+  const fetchJobs = useCallback(async () => {
     try {
-      setLoading(true);
-
-      const res = await getJobs({
-        search,
-        status,
-        page,
-        limit,
-      });
-
-      // 🔥 FIXED MAPPING (YOUR ISSUE WAS HERE)
-      setData(res?.data || []);
-      setMeta(res?.meta || null);
+      const res = await getJobs(query);
+      const data = res.data || [];
+      setJobs(data);
+      setMeta(res.meta || {});
       setError(null);
-
     } catch (err) {
-      setError(err?.message || "Failed to fetch jobs");
-      setData([]);
-      setMeta(null);
-    } finally {
-      setLoading(false);
+      setError(err?.response?.data?.message || "Failed to load jobs");
     }
-  };
+  }, [JSON.stringify(query)]);
 
+  // Initial load
   useEffect(() => {
-    fetchJobs();
-  }, [search, status, page]);
+    const init = async () => {
+      setLoading(true);
+      await fetchJobs();
+      setLoading(false);
+    };
+    init();
+  }, [fetchJobs]);
 
-  return {
-    data,
-    meta,        // 🔥 IMPORTANT FOR PAGINATION
-    loading,
-    error,
-    refetch: fetchJobs,
-  };
+  // refetch: silent refresh (no spinner)
+  const refetch = useCallback(() => {
+    fetchJobs();
+  }, [fetchJobs]);
+
+  return { jobs, setJobs, meta, loading, error, refetch };
 };

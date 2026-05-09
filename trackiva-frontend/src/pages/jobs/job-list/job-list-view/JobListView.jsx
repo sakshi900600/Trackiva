@@ -5,18 +5,20 @@ import AddApplication from "../../action-btns/AddApplication";
 import styles from "../JobList.module.css";
 import { useJobs } from "../../../../hooks/useJobs";
 
-const JobListView = ({ view, setView, search, setSearch }) => {
+const JobListView = ({ view, setView, search, setSearch, refreshKey }) => {
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
 
   const navigate = useNavigate();
 
-  const { data = [], loading, meta, refetch } = useJobs({
+  // ✅ FIX: useJobs returns `jobs` not `data` — was always undefined before
+  const { jobs = [], loading, meta, refetch } = useJobs({
     search,
     page,
     limit: 10,
     status: statusFilter,
+    refreshKey,
   });
 
   const columns = [
@@ -41,7 +43,6 @@ const JobListView = ({ view, setView, search, setSearch }) => {
         <span>{new Date(row.appliedDate).toLocaleDateString()}</span>
       ),
     },
-    // ✅ FIX: salary can be a number OR { expected: number }
     {
       header: "Salary",
       render: (row) => {
@@ -52,7 +53,6 @@ const JobListView = ({ view, setView, search, setSearch }) => {
             : typeof raw === "number"
             ? raw
             : null;
-
         return (
           <span className={styles.salary}>
             {amount ? `₹${amount.toLocaleString("en-IN")}` : "—"}
@@ -95,15 +95,14 @@ const JobListView = ({ view, setView, search, setSearch }) => {
     },
   ];
 
-  // ✅ Map data rows to include onClick for navigation
-  const rowData = data.map((job) => ({
+  // ✅ Use `jobs` (correct variable name from hook)
+  const rowData = jobs.map((job) => ({
     ...job,
     onClick: () => navigate(`/jobs/${job._id}`),
   }));
 
   return (
     <>
-      {/* ✅ ADD APPLICATION MODAL */}
       {showAddModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalBox}>
@@ -133,9 +132,10 @@ const JobListView = ({ view, setView, search, setSearch }) => {
             loading={loading}
             showAddButton={true}
             onAddClick={() => setShowAddModal(true)}
+            isBackendPaginated={true}
+            onRefresh={refetch}
           />
 
-          {/* ✅ BACKEND PAGINATION — only when ListView's internal one won't show */}
           {!loading && meta && meta.pages > 1 && (
             <div className={styles.pagination}>
               <button

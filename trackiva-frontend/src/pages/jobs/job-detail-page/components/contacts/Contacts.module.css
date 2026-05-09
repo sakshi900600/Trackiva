@@ -73,3 +73,35 @@
   .card { padding: 16px; }
   .formRow { grid-template-columns: 1fr; }
 }
+
+
+/* ADD THESE TO YOUR EXISTING Contacts.module.css */
+
+.contactRole {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0 0 3px;
+}
+
+.contactEmail {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #2563eb;
+  text-decoration: none;
+  margin: 0 0 2px;
+  word-break: break-all;
+}
+.contactEmail:hover { text-decoration: underline; }
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: #7c3aed;
+  text-decoration: none;
+  margin: 0;
+}
+.contactLink:hover { text-decoration: underline; }
