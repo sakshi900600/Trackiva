@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    console.log("📤 Request:", config.method?.toUpperCase(), config.url, "| Token:", token ? "✓" : "✗ MISSING");
+    // console.log("📤 Request:", config.method?.toUpperCase(), config.url, "| Token:", token ? "✓" : "✗ MISSING");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -24,14 +24,14 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log("📥 Response:", response.status, response.config.url);
+    // console.log("📥 Response:", response.status, response.config.url);
     return response;
   },
   (error) => {
-    console.error("📥 Error response:", error.response?.status, error.config?.url, error.message);
+    // console.error("📥 Error response:", error.response?.status, error.config?.url, error.message);
 
     if (error.response?.status === 401) {
-      console.warn("🔐 401 - redirecting to login");
+      // console.warn("🔐 401 - redirecting to login");
       localStorage.removeItem("token");
       window.location.href = "/login";
     }
