@@ -4,7 +4,7 @@ import ReportPage from "./pages/reports/ReportPage";
 import Analytics from "./pages/analytics/Analytics";
 import Platforms from "./pages/platforms/Platforms";
 import Jobs from "./pages/jobs/Jobs";
-import Dashboard from "./pages/dashboard/dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 import { Toaster } from "react-hot-toast";
 import Profile from "./pages/profile/Profile";
 import JobDetailPage from "./pages/jobs/job-detail-page/JobDetailPage";
