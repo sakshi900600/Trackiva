@@ -36,11 +36,10 @@ axiosInstance.interceptors.response.use(
       window.location.href = "/login";
     }
 
-    return Promise.reject(
-      error.response?.data || {
-        message: error.message || "Something went wrong",
-      }
-    );
+    // ✅ CRITICAL: reject with the original axios error, NOT error.response.data
+    // friendlyError() in Auth.jsx reads err?.response?.data?.message
+    // If we strip the error down to just the data, that path breaks
+    return Promise.reject(error);
   }
 );
 

@@ -21,6 +21,7 @@ const friendlyError = (err) => {
   }
 
   // Auth errors
+  if (msg.includes("Google Sign-In") && msg.includes("log in")) return "This email is linked to a Google account. Please use the 'Continue with Google' button instead.";
   if (msg.includes("Invalid credentials")) return "Incorrect email or password. Please try again.";
   if (msg.includes("already exists")) return "An account with this email already exists. Try logging in instead.";
   if (msg.includes("Google Sign-In")) return "This account was created with Google. Please use the 'Continue with Google' button.";

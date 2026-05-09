@@ -82,7 +82,6 @@ export const googleAuth = async (idToken) => {
   });
   const { sub, email, name, picture } = ticket.getPayload();
 
-  // Google-verified emails are inherently valid — skip MX check
   let user = await User.findOne({ email: email.toLowerCase() });
   if (!user) {
     user = await User.create({
@@ -93,7 +92,6 @@ export const googleAuth = async (idToken) => {
       isVerified: true,
     });
   } else if (!user.googleId) {
-    // Link Google to existing account
     user.googleId = sub;
     if (!user.avatar?.url && picture) user.avatar = { url: picture };
     user.isVerified = true;
@@ -117,11 +115,20 @@ export const forgotPassword = async (email) => {
 
   const user = await User.findOne({ email: email.toLowerCase().trim() });
 
-  // Don't reveal whether user exists — but still try to send if they do
-  if (!user || user.googleId) {
+  // User doesn't exist — don't reveal this, return generic success
+  if (!user) {
     return { message: "If that email is registered, a reset link has been sent." };
   }
 
+  // Google-only account (has googleId but no password) — tell them clearly
+  if (user.googleId && !user.password) {
+    throw Object.assign(
+      new Error("This account uses Google Sign-In. Please use the 'Continue with Google' button to log in."),
+      { statusCode: 400 }
+    );
+  }
+
+  // Has password (email account, or linked account) — send reset email
   const resetToken = crypto.randomBytes(32).toString("hex");
   const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
@@ -131,7 +138,9 @@ export const forgotPassword = async (email) => {
 
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-  // This will throw with statusCode 500 if email fails — error bubbles to controller
+  console.log("Sending reset email to:", user.email);
+  console.log("Reset URL:", resetUrl);
+
   await sendPasswordResetEmail(user.email, user.name, resetUrl);
 
   return { message: "If that email is registered, a reset link has been sent." };
