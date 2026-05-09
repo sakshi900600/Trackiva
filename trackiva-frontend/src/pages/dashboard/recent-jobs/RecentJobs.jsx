@@ -67,12 +67,7 @@ const RecentJobs = () => {
           </div>
         ) : jobs.length === 0 ? (
           <div className={styles.emptyState}>
-            <div className={styles.emptyIllustration}>
-              <img
-                src="https://illustrations.popsy.co/purple/searching.svg"
-                alt="No applications yet"
-              />
-            </div>
+            
             <h3 className={styles.emptyTitle}>No applications yet</h3>
             <p className={styles.emptyDesc}>
               Start logging your job applications and track every opportunity in one place.

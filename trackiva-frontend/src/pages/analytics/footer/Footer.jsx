@@ -60,15 +60,6 @@ const Footer = ({ data, loading }) => {
     },
   ];
 
-  // ⚪ Empty state
-  if (!platforms.length && !trends.length) {
-    return (
-      <div className={styles.empty}>
-        <h3>No Insights Yet</h3>
-        <p>Add more job data to see insights 🚀</p>
-      </div>
-    );
-  }
 
   return (
     <div className={styles.container}>
