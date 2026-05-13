@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./AnalyticsPreview.module.css";
 
 const stats = [
@@ -16,6 +17,7 @@ const portalRows = [
 ];
 
 export default function AnalyticsPreview() {
+  const navigate = useNavigate();
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -46,7 +48,7 @@ export default function AnalyticsPreview() {
               Identify patterns in rejections to improve faster
             </li>
           </ul>
-          <a href="#" className={styles.ctaBtn}>
+          <a href="#" className={styles.ctaBtn} onClick={(e) => { e.preventDefault(); navigate("/login"); }}>
             See Your Analytics
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M8.5 4l4.5 4-4.5 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>

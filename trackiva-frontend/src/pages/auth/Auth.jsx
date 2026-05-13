@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdEmail, MdLock, MdPerson, MdVisibility, MdVisibilityOff } from "react-icons/md";
 import { GoogleLogin } from "@react-oauth/google";
 import { login, register, forgotPassword, googleAuth } from "../../api/auth";
@@ -40,6 +41,7 @@ const friendlyError = (err) => {
 };
 
 const Auth = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("login"); // "login" | "signup" | "forgot"
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -146,7 +148,11 @@ const Auth = () => {
 
         {/* Header */}
         <div className={styles.cardHeader}>
-          <div className={styles.logoWrapper}>
+          <div
+            className={styles.logoWrapper}
+            onClick={() => navigate("/")}
+            style={{ cursor: "pointer" }}
+          >
             <img src={logo} alt="Trackiva" className={styles.logo} />
           </div>
 
