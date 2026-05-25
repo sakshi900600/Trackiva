@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Trackiva</title>
+
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+
+  <div class="popup-container">
+
+    <!-- Header -->
+    <div class="header">
+
+      <div class="logo-row">
+
+        <div class="logo-circle">
+          T
+        </div>
+
+        <div>
+          <h1>Trackiva</h1>
+          <p>Your Job Tracker Assistant</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Message -->
+    <div id="message" class="message hidden"></div>
+
+    <!-- Main Content -->
+    <div class="content">
+
+      <div class="form-group">
+        <label>Company</label>
+
+        <input
+          type="text"
+          id="company"
+          class="input"
+          placeholder="Google"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Role</label>
+
+        <input
+          type="text"
+          id="role"
+          class="input"
+          placeholder="Frontend Developer"
+        />
+      </div>
+
+      <div class="form-group">
+
+        <label>Platform</label>
+
+        <select id="platform" class="input">
+
+          <option value="">
+            Select Platform
+          </option>
+
+          <option value="LinkedIn">
+            LinkedIn
+          </option>
+
+          <option value="Indeed">
+            Indeed
+          </option>
+
+          <option value="Glassdoor">
+            Glassdoor
+          </option>
+
+          <option value="Wellfound">
+            Wellfound
+          </option>
+
+          <option value="Company Website">
+            Company Website
+          </option>
+
+        </select>
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Location</label>
+
+        <input
+          type="text"
+          id="location"
+          class="input"
+          placeholder="Remote / Bangalore"
+        />
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Application URL</label>
+
+        <input
+          type="text"
+          id="platformUrl"
+          class="input"
+          placeholder="https://..."
+        />
+
+      </div>
+
+      <div class="button-group">
+
+        <button
+          id="saveBtn"
+          class="primary-btn"
+        >
+          Save to Trackiva
+        </button>
+
+        <button
+          id="clearBtn"
+          class="secondary-btn"
+        >
+          Clear
+        </button>
+
+      </div>
+
+      <div
+        id="loadingSpinner"
+        class="loader hidden"
+      ></div>
+
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+
+</body>
+</html>
